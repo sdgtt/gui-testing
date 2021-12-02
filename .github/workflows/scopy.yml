@@ -28,11 +28,11 @@ jobs:
         sudo apt update
         sudo apt install -y flatpak
         sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        sudo flatpak install flathub org.kde.Platform//5.15
-        sudo flatpak install flathub org.kde.Sdk//5.15
+        sudo flatpak install -y flathub org.kde.Platform//5.15
+        sudo flatpak install -y flathub org.kde.Sdk//5.15
         wget https://github.com/analogdevicesinc/scopy/releases/download/v1.3.0/scopy-v1.3.0-Linux.flatpak.zip
         unzip scopy-v1.3.0-Linux.flatpak.zip
-        sudo flatpak install Scopy.flatpak
+        sudo flatpak install -y Scopy.flatpak
         Xvfb :99 -ac &
         export DISPLAY=:99
         sleep 5
