@@ -27,7 +27,7 @@ jobs:
         sudo add-apt-repository ppa:alexlarsson/flatpak
         sudo apt update
         sudo apt install -y flatpak
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         wget https://github.com/analogdevicesinc/scopy/releases/download/v1.3.0/scopy-v1.3.0-Linux.flatpak.zip
         unzip scopy-v1.3.0-Linux.flatpak.zip
         sudo flatpak install scopy-v1.3.0-Linux-flatpak.flatpak
