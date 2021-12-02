@@ -15,8 +15,11 @@ jobs:
         architecture: x64
     - run: |
         sudo apt-get update
-        sudo apt-get install python3 tesseract-ocr python3-pip curl unzip firefox -yf
+        sudo apt-get install python3 python3-pip curl unzip firefox -yf
         sudo apt install -y python3 python3-pip
+        sudo pip3 install --upgrade pip 
+        sudo pip3 install Pillow
+        sudo apt install -y tesseract-ocr
         DEBIAN_FRONTEND=noninteractive sudo apt install -y python3-xlib
         sudo apt install -y xvfb xserver-xephyr scrot
         sudo pip3 install -r requirements_linux.txt
@@ -25,10 +28,9 @@ jobs:
         firefox&
         sleep 5
         scrot test.png
-  - name: 'Upload Artifact'
-    uses: actions/upload-artifact@v2
-    with:
-      name: test_img
-      path: test.png
-      retention-days: 5
-
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: test_img
+        path: test.png
+        retention-days: 5
