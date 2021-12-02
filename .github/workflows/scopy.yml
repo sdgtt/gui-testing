@@ -30,7 +30,7 @@ jobs:
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
         wget https://github.com/analogdevicesinc/scopy/releases/download/v1.3.0/scopy-v1.3.0-Linux.flatpak.zip
         unzip scopy-v1.3.0-Linux.flatpak.zip
-        flatpak install scopy-v1.3.0-Linux-flatpak.flatpak
+        sudo flatpak install scopy-v1.3.0-Linux-flatpak.flatpak
         Xvfb :99 -ac &
         export DISPLAY=:99
         sleep 5
