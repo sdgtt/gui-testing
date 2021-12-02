@@ -24,13 +24,18 @@ jobs:
         sudo apt install -y xvfb xserver-xephyr scrot
         sudo apt install -y firefox-geckodriver
         sudo pip3 install -r requirements_linux.txt
+        sudo add-apt-repository ppa:alexlarsson/flatpak
+        sudo apt update
+        sudo apt install -y flatpak
+        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        wget https://github.com/analogdevicesinc/scopy/releases/download/v1.3.0/scopy-v1.3.0-Linux.flatpak.zip
+        unzip scopy-v1.3.0-Linux.flatpak.zip
+        flatpak install scopy-v1.3.0-Linux-flatpak.flatpak
         Xvfb :99 -ac &
         export DISPLAY=:99
         sleep 5
-        firefox --new-window http://www.cyberciti.biz/ &
-        sleep 5
-        firefox --new-window http://www.cyberciti.biz/ &
-        sleep 5
+        ./scopy
+        sleep 15
         scrot test.png
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
