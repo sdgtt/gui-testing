@@ -3,3 +3,7 @@ pyautogui
 opencv-python
 pytesseract
 pytest
+
+keyboard
+PyVirtualDisplay
+pyscreenshot
