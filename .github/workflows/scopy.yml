@@ -27,9 +27,9 @@ jobs:
         Xvfb :99 -ac &
         export DISPLAY=:99
         sleep 5
-        firefox&
+        firefox --new-window http://www.cyberciti.biz/ &
         sleep 5
-        firefox&
+        firefox --new-window http://www.cyberciti.biz/ &
         sleep 5
         scrot test.png
     - name: 'Upload Artifact'
