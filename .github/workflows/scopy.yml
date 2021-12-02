@@ -36,7 +36,7 @@ jobs:
         Xvfb :99 -ac &
         export DISPLAY=:99
         sleep 5
-        flatpak run org.adi.Scopy
+        flatpak run org.adi.Scopy &
         sleep 15
         scrot test.png
     - name: 'Upload Artifact'
