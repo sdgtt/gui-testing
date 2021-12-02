@@ -36,7 +36,7 @@ jobs:
         Xvfb :99 -ac &
         export DISPLAY=:99
         sleep 5
-        ./scopy
+        ./org.adi.Scopy
         sleep 15
         scrot test.png
     - name: 'Upload Artifact'
