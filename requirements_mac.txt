@@ -4,3 +4,4 @@ pyautogui
 opencv-python
 pytesseract
 pytest
+pytest-dependency
