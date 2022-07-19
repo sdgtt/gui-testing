@@ -1,0 +1,29 @@
+name: Test Scopy GUI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8']
+    name: Python ${{ matrix.python-version }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+        architecture: x64
+    - run: |
+        bash ./.github/scripts/install_scopy_linux.sh
+        Xvfb :99 -ac &
+        export DISPLAY=:99
+        sleep 5
+        flatpak run org.adi.Scopy &
+        sleep 15
+        scrot test.png
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: test_img
+        path: test.png
+        retention-days: 5
