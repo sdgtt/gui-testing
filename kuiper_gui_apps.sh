@@ -1,7 +1,7 @@
 #!/usr/bin/bash
-echo 'Creating gui-screenshots/ in boot/'
+echo "Creating gui-screenshots/ in boot/"
 cd /boot/ && echo analog | sudo -S mkdir -p gui-screenshots/
-echo 'Creating gui-logs/ in boot/ and going back to original pwd...'
+echo "Creating gui-logs/ in boot/ and going back to original pwd..."
 echo analog | sudo -S mkdir -p gui-logs/ && cd
 pwd
 echo "Checking screen version..."
@@ -46,7 +46,7 @@ for CMD in $CMDS
       rm -rf scopy.txt && cd
     else
       echo "Moving ${CMD}.txt to /boot/gui-logs..."
-      echo analog | sudo -S cp $CMD.txt /boot/gui-logs/ && cd
+      echo analog | sudo -S cp ${CMD}.txt /boot/gui-logs/ && cd
       rm -rf ${CMD}.txt && cd
     fi
 
