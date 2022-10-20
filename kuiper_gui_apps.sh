@@ -47,7 +47,7 @@ for CMD in $CMDS
     else
       echo "Moving ${CMD}.txt to /boot/gui-logs..."
       echo analog | sudo -S cp $CMD.txt /boot/gui-logs/ && cd
-      rm -rf *.txt && cd
+      rm -rf ${CMD}.txt && cd
     fi
 
     echo "Done!"
