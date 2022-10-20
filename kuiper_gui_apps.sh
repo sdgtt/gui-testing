@@ -4,6 +4,11 @@ cd /boot/ && echo analog | sudo -S mkdir -p gui-screenshots/
 echo 'Creating gui-logs/ in boot/ and going back to original pwd...'
 echo analog | sudo -S mkdir -p gui-logs/ && cd
 pwd
+echo "Checking screen version..."
+screen --version
+echo "Installing screen..."
+echo analog | sudo -S apt-get install screen
+
 CMDS="osc gnuradio-companion adi_colorimeter chromium-browser scopy"
 for CMD in $CMDS
   do
