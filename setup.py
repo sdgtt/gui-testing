@@ -25,6 +25,5 @@ setuptools.setup(
         "pyautogui",
         "opencv-contrib-python",
         "python-xlib",
-        "pyewmh"
     ],
 )
