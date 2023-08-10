@@ -2,6 +2,7 @@
 
 import logging
 import os
+import signal
 import threading
 import multiprocessing
 import time
@@ -163,11 +164,9 @@ class gui:
         p = subprocess.Popen(command,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
-                                text=True
+                                text=True,
                             )
         self.run(app_name,p, daemon=daemon)
-
-
 
 if __name__ == "__main__":
     g = gui()
