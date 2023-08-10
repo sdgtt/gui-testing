@@ -83,9 +83,9 @@ class gui:
         windows = self.get_open_windows()
         for window in windows:
             _w = self.get_window_title(window)
-            if  _w == title:
+            if _w == title:
                 return window
-        return None
+        raise Exception(f"Cannot find {title}")
 
     def close_window(self, window):
         window.destroy()
@@ -110,11 +110,13 @@ class gui:
         return open_windows
 
     def get_window_title(self, window):
-        window_name = window.get_property(Xatom.WM_NAME , X.AnyPropertyType, 0, 1024)
-        if window_name:
-            return window_name.value.decode("utf-8")
+        if window:
+            window_name = window.get_property(Xatom.WM_NAME , X.AnyPropertyType, 0, 1024)
+            if window_name:
+                if isinstance(window_name.value, str):
+                    return window_name.value
+                return window_name.value.decode("utf-8")
         return None
-
 
     def frame(self, window):
         frame = window
