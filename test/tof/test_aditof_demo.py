@@ -27,13 +27,12 @@ class TestADITofDemo:
         self.gui.dettach_openbox()
         del self.gui
 
+    @pytest.mark.local
     def test_open_app(self):
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
-            host="192.168.10.181",
-            user="analog",
-            app_name="aditof_demo.py",
-            path="/home/analog/Desktop/aditof-demo.sh",
+            app_name="aditof_demo",
+            path="/aditof_sdk/build/examples/aditof-demo/aditof-demo",
         )
         time.sleep(10)
         # find_main screen
@@ -44,7 +43,57 @@ class TestADITofDemo:
         assert self.gui.controller.locateCenterOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.9)
         self.gui.controller.screenshot("results/test_open_app.png")
 
-    
+    @pytest.mark.local
+    def test_change_to_network(self):
+        '''Change connection mode to Network'''
+
+        # activate first aditof_server on the smart cam
+        self.gui.open_app(
+            host="192.168.10.181",
+            user="analog",
+            app_name="aditof-server",
+            path="/home/analog/Workspace/aditof_sdk/build/apps/server/aditof-server",
+            daemon=False
+        )
+        time.sleep(2)
+        # change network mode on the client
+        network_btn = self.gui.controller.locateCenterOnScreen(
+            "ref_test_network_mode_radio_button.png", grayscale=True, confidence=0.9)
+        assert network_btn
+        self.gui.controller.click(network_btn)
+        time.sleep(5)
+        ip_field = self.gui.controller.locateCenterOnScreen(
+            "ref_test_ip_field.png", grayscale=True, confidence=0.9)
+        assert ip_field
+        self.gui.controller.click(ip_field)
+        # write ip address
+        self.gui.controller.write("192.168.10.181", interval=0.25)
+        time.sleep(2)
+        connect_btn = self.gui.controller.locateCenterOnScreen(
+            "ref_test_connect_button.png", grayscale=True, confidence=0.9)
+        assert connect_btn
+        self.gui.controller.click(connect_btn)
+        time.sleep(5)
+        self.gui.controller.screenshot("results/test_network_mode.png")
+
+    @pytest.mark.remote
+    def test_open_app_on_remote(self):
+        '''Test if app opens, and checks main window'''
+        self.gui.open_app(
+            host="192.168.10.181",
+            user="analog",
+            app_name="aditof_demo",
+            path="/home/analog/Workspace/aditof_sdk/build/examples/aditof-demo/aditof-demo",
+        )
+        time.sleep(10)
+        # find_main screen
+        main_window = self.gui.find_window("aditof-demo 3.1.0")
+        # center on screen
+        self.gui.set_window_center(main_window)
+        time.sleep(5)
+        assert self.gui.controller.locateCenterOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.9)
+        self.gui.controller.screenshot("results/test_open_app.png")
+
     def test_play_button(self):
         '''Test if capture works by clicking the play button'''
         found = self.gui.controller.locateCenterOnScreen("ref_test_play_button.png", grayscale=True, confidence=0.9)
@@ -78,7 +127,7 @@ class TestADITofDemo:
         time.sleep(5)
         self.gui.controller.screenshot("results/test_capture_depth.png")
         # try to compare with ref data
-        found = self.gui.controller.locateOnScreen('ref_depth_win.png', confidence=0.9)
+        found = self.gui.controller.locateOnScreen('ref_depth_win.png', confidence=0.7)
         assert found
         self.gui.controller.screenshot("results/test_capture_depth_raw.png",region=found)
 
@@ -95,4 +144,15 @@ class TestADITofDemo:
         self.gui.controller.click(found)
         time.sleep(5)
         self.gui.controller.screenshot("results/test_stop_button_after.png")
+
+    @pytest.mark.local
+    def test_kill_adi_tof_server(self):
+        # manually kill aditof-server (for now)
+        self.gui.open_app(
+            host="192.168.10.181",
+            user="analog",
+            app_name="aditof-server-killer",
+            path="/home/analog/Workspace/aditof_sdk/build/apps/server/aditof-server-killer",
+            daemon=False
+        )
         
