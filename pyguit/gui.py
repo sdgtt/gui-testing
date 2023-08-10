@@ -155,13 +155,17 @@ class gui:
             new_y=int(1080/2)-int(wgeo.height/2),
         )
 
-    def open_app(self, host, user, app_name, path):
-        p = subprocess.Popen(["ssh","-X", f"{user}@{host}", path],
+    def open_app(self, app_name, path, host=None, user=None, daemon=True):
+        command = [path]
+        if host:
+            command = ["ssh","-X", f"{user}@{host}", path]
+
+        p = subprocess.Popen(command,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
                                 text=True
                             )
-        self.run(app_name,p, daemon=True)
+        self.run(app_name,p, daemon=daemon)
 
 
 
@@ -191,5 +195,3 @@ if __name__ == "__main__":
     print(g.get_window_title(w))
     g.close_window(w)
     del g
-
-
