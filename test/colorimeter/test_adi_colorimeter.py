@@ -37,7 +37,10 @@ class TestADIColorimeter:
         )
         time.sleep(10)
         # find_main screen
-        main_window = self.gui.find_window("aditof-demo 3.1.0")
+        for w in self.gui.get_open_windows():
+            if w:
+                print(self.gui.get_window_title(w))
+        main_window = self.gui.find_window("Colorimeter Demo - CN0363")
         # center on screen
         self.gui.set_window_center(main_window)
         time.sleep(5)
@@ -51,10 +54,6 @@ class TestADIColorimeter:
 
 
         
-
-
-
-
 
 
 
