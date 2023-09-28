@@ -44,12 +44,12 @@ class TestADITofDemo:
         self.gui.controller.screenshot("results/test_open_app.png")
 
     @pytest.mark.local
-    def test_change_to_network(self):
+    def test_change_to_network(self, ip):
         '''Change connection mode to Network'''
 
         # activate first aditof_server on the smart cam
         self.gui.open_app(
-            host="192.168.10.181",
+            host=ip,
             user="analog",
             app_name="aditof-server",
             path="/home/analog/Workspace/aditof_sdk/build/apps/server/aditof-server",
@@ -67,7 +67,7 @@ class TestADITofDemo:
         assert ip_field
         self.gui.controller.click(ip_field)
         # write ip address
-        self.gui.controller.write("192.168.10.181", interval=0.25)
+        self.gui.controller.write(ip, interval=0.25)
         time.sleep(2)
         connect_btn = self.gui.controller.locateCenterOnScreen(
             "ref_test_connect_button.png", grayscale=True, confidence=0.9)
@@ -77,10 +77,10 @@ class TestADITofDemo:
         self.gui.controller.screenshot("results/test_network_mode.png")
 
     @pytest.mark.remote
-    def test_open_app_on_remote(self):
+    def test_open_app_on_remote(self, ip):
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
-            host="192.168.10.181",
+            host=ip,
             user="analog",
             app_name="aditof_demo",
             path="/home/analog/Workspace/aditof_sdk/build/examples/aditof-demo/aditof-demo",
@@ -146,10 +146,10 @@ class TestADITofDemo:
         self.gui.controller.screenshot("results/test_stop_button_after.png")
 
     @pytest.mark.local
-    def test_kill_adi_tof_server(self):
+    def test_kill_adi_tof_server(self,ip):
         # manually kill aditof-server (for now)
         self.gui.open_app(
-            host="192.168.10.181",
+            host=ip,
             user="analog",
             app_name="aditof-server-killer",
             path="/home/analog/Workspace/aditof_sdk/build/apps/server/aditof-server-killer",

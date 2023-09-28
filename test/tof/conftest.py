@@ -13,6 +13,13 @@ def pytest_addoption(parser):
         help="Run test on local mode",
     )
 
+    parser.addoption(
+        "--ip",
+        action="store",
+        default="localhost",
+        help="IP of DUT",
+    )
+
 
 def pytest_configure(config):
     # register marker
@@ -34,3 +41,7 @@ def pytest_runtest_setup(item):
         pytest.skip(
             "Testing requires local flag: --local"
         )
+
+@pytest.fixture(scope="session")
+def ip(pytestconfig):
+    return pytestconfig.getoption("ip")
