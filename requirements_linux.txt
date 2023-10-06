@@ -7,3 +7,4 @@ pytest-dependency
 keyboard
 PyVirtualDisplay
 pyscreenshot
+ewmh
