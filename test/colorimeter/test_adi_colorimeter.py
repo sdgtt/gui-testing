@@ -27,10 +27,11 @@ class TestADIColorimeter:
         self.gui.dettach_openbox()
         del self.gui
 
-    def test_open_app(self):
+    @pytest.mark.remote
+    def test_open_app(self, ip):
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
-            host="192.168.10.150",
+            host=ip,
             user="analog",
             app_name="adi_colorimeter",
             path="/usr/local/bin/adi_colorimeter",
