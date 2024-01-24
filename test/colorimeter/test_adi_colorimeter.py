@@ -36,7 +36,7 @@ class TestADIColorimeter:
             app_name="adi_colorimeter",
             path="/usr/local/bin/adi_colorimeter",
         )
-        time.sleep(20)
+        time.sleep(10)
         # find_main screen
         for w in self.gui.get_open_windows():
             if w:
