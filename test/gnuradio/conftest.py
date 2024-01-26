@@ -23,6 +23,7 @@ def pytest_addoption(parser):
     parser.addoption(
         "--delay",
         action="store",
+        type=int,
         default=10,
         help="adding delay",
     )
