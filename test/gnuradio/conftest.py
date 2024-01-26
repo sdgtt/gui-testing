@@ -56,5 +56,9 @@ def ip(pytestconfig):
 
 
 @pytest.fixture(scope="session")
+<<<<<<< HEAD
 def delay(pytestconfig):
+=======
+def addtime(pytestconfig):
+>>>>>>> 3adfa61 (add fixture for add delay)
     return pytestconfig.getoption("delay")

@@ -31,7 +31,10 @@ class TestADIGnuradio:
 
     @pytest.mark.remote
     def test_open_app_on_remote(self, ip, delay):
+<<<<<<< HEAD
         print("Test build: Started")
+=======
+>>>>>>> 3adfa61 (add fixture for add delay)
         '''Test if app opens, and checks main window'''
         print("Test build: Opening application")
         self.gui.open_app(
