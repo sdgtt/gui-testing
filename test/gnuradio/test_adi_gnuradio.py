@@ -28,7 +28,7 @@ class TestADIGnuradio:
         del self.gui
 
     @pytest.mark.remote
-    def test_open_app_on_remote(self, ip):
+    def test_open_app_on_remote(self, ip, delay):
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
             host= ip,
@@ -36,13 +36,13 @@ class TestADIGnuradio:
             app_name="gnuradio",
             path="/usr/bin/gnuradio-companion",
         )
-        time.sleep(20)
+        time.sleep(delay)
         print([ self.gui.get_window_title(w) for w in self.gui.get_open_windows() ])
         # find_main screen
         main_window = self.gui.find_window("untitled - GNU Radio Companion")
         # center on screen
         self.gui.set_window_center(main_window)
-        time.sleep(30)
+        time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_app.png")
         assert self.gui.controller.locateCenterOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.7)
 
