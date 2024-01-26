@@ -31,7 +31,7 @@ class TestADIGnuradio:
     def test_open_app_on_remote(self, ip):
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
-            host="192.168.10.117",
+            host= ip,
             user="analog",
             app_name="gnuradio",
             path="/usr/bin/gnuradio-companion",
