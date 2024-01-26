@@ -55,5 +55,5 @@ def ip(pytestconfig):
 
 
 @pytest.fixture(scope="session")
-def addtime(pytestconfig):
+def delay(pytestconfig):
     return pytestconfig.getoption("delay")
