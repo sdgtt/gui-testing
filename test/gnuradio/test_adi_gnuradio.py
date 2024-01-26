@@ -36,12 +36,13 @@ class TestADIGnuradio:
             app_name="gnuradio",
             path="/usr/bin/gnuradio-companion",
         )
-        time.sleep(10)
+        time.sleep(15)
+        print(self.gui.get_open_windows())
         # find_main screen
         # main_window = self.gui.find_window("ADI GNU Radio Companion")
         # center on screen
         # self.gui.set_window_center(main_window)
-        time.sleep(10)
+        time.sleep(5)
         assert self.gui.controller.locateCenterOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.9)
         self.gui.controller.screenshot("results/test_open_app.png")
 
