@@ -24,9 +24,13 @@ def pytest_addoption(parser):
         "--delay",
         action="store",
 <<<<<<< HEAD
+<<<<<<< HEAD
         type=int,
 =======
 >>>>>>> 3adfa61 (add fixture for add delay)
+=======
+        type=int,
+>>>>>>> e97199f (include type int since delay is integer)
         default=10,
         help="adding delay",
     )
