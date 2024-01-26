@@ -41,6 +41,7 @@ class TestADIGnuradio:
             path="/usr/bin/gnuradio-companion",
         )
         time.sleep(delay)
+<<<<<<< HEAD
         print("Test build: Check application title")
         # Find main screen
         found_window = None
@@ -71,6 +72,16 @@ class TestADIGnuradio:
         self.gui.controller.screenshot("results/test_open_app.png")
         assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
         self.gui.alert('Try alert message function')
+=======
+        print([ self.gui.get_window_title(w) for w in self.gui.get_open_windows() ])
+        # find_main screen
+        main_window = self.gui.find_window("untitled - GNU Radio Companion")
+        # center on screen
+        self.gui.set_window_center(main_window)
+        time.sleep(delay)
+        self.gui.controller.screenshot("results/test_open_app.png")
+        assert self.gui.controller.locateCenterOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+>>>>>>> ec854d4 (Initial test of gnu and osc - function: launching of application and screenshot check reference)
 
 
 
