@@ -27,7 +27,7 @@ class TestADIGnuradio:
         self.gui.dettach_openbox()
         del self.gui
 
-     @pytest.mark.remote
+    @pytest.mark.remote
     def test_open_app_on_remote(self, ip):
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
