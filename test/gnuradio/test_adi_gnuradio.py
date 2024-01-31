@@ -44,7 +44,7 @@ class TestADIGnuradio:
         self.gui.set_window_center(main_window)
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_app.png")
-        # assert self.gui.controller.locateCenterOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+        assert self.gui.controller.locateCenterOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
 
 
 
