@@ -20,6 +20,14 @@ def pytest_addoption(parser):
         help="IP of DUT",
     )
 
+    parser.addoption(
+        "--delay",
+        action="store",
+        type=int,
+        default=10,
+        help="adding delay",
+    )
+
 
 def pytest_configure(config):
     # register marker
@@ -45,3 +53,8 @@ def pytest_runtest_setup(item):
 @pytest.fixture(scope="session")
 def ip(pytestconfig):
     return pytestconfig.getoption("ip")
+
+
+@pytest.fixture(scope="session")
+def delay(pytestconfig):
+    return pytestconfig.getoption("delay")
