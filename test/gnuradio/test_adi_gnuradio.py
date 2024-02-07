@@ -54,7 +54,7 @@ class TestADIGnuradio:
 <<<<<<< HEAD
         # print([ self.gui.get_window_title(w) for w in self.gui.get_open_windows() ])
         # find_main screen
-        main_window = self.gui.find_window("*untitled - GNU Radio Companion")
+        self.gui.find_window("*untitled - GNU Radio Companion")
         # center on screen
         # self.gui.set_window_center(main_window)
         # time.sleep(30)
