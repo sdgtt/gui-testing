@@ -41,9 +41,10 @@ class TestADIGnuradio:
         # find_main screen
         main_window = self.gui.find_window("*untitled - GNU Radio Companion")
         # center on screen
-        self.gui.set_window_center(main_window)
+        # self.gui.set_window_center(main_window)
+        self.gui.locateOnScreen('ref_test_open_app.png')
         time.sleep(30)
-        assert self.gui.controller.locateAllOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
         self.gui.controller.screenshot("results/test_open_app.png")
         # self.gui.alert('Try alert message function')
 
