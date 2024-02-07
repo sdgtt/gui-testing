@@ -80,9 +80,6 @@ class gui:
     def dettach_openbox(self):
         self.stop("openbox")
 
-    def alert(self):
-        self.alert("DONE")
-        
     def find_window(self, title):
         windows = self.get_open_windows()
         for window in windows:

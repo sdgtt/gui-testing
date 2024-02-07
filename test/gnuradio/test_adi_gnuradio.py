@@ -48,8 +48,6 @@ class TestADIGnuradio:
         time.sleep(30)
         self.gui.controller.screenshot("results/test_open_app.png")
         assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
-        self.gui.alert()
-
 
 
 
