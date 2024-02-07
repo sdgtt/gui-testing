@@ -37,14 +37,14 @@ class TestADIGnuradio:
             path="/usr/bin/gnuradio-companion",
         )
         time.sleep(15)
-        print([ self.gui.get_window_title(w) for w in self.gui.get_open_windows() ])
+        # print([ self.gui.get_window_title(w) for w in self.gui.get_open_windows() ])
         # find_main screen
         main_window = self.gui.find_window("*untitled - GNU Radio Companion")
         # center on screen
         # self.gui.set_window_center(main_window)
         # time.sleep(30)
-        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
         self.gui.controller.screenshot("results/test_open_app.png")
+        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
         # self.gui.alert('Try alert message function')
 
 
