@@ -31,10 +31,7 @@ class TestADIGnuradio:
 
     @pytest.mark.remote
     def test_open_app_on_remote(self, ip, delay):
-<<<<<<< HEAD
         print("Test build: Started")
-=======
->>>>>>> 3adfa61 (add fixture for add delay)
         '''Test if app opens, and checks main window'''
         print("Test build: Opening application")
         self.gui.open_app(
@@ -53,15 +50,27 @@ class TestADIGnuradio:
                 print(self.gui.get_window_title(w))
 =======
         time.sleep(15)
+<<<<<<< HEAD
         # print([ self.gui.get_window_title(w) for w in self.gui.get_open_windows() ])
         # find_main screen
         main_window = self.gui.find_window("*untitled - GNU Radio Companion")
         # center on screen
         # self.gui.set_window_center(main_window)
         # time.sleep(30)
+=======
+        #find_main_screen
+        for w in self.gui.get_open_windows():
+            if w:
+                print(self.gui.get_window_title(w))      
+        # find_window_title
+        self.gui.find_window("*untitled - GNU Radio Companion")
+        # center on screen
+        self.gui.set_window_center(main_window)
+        time.sleep(30)
+>>>>>>> aee7232 (added checking if window is open then check window title)
         self.gui.controller.screenshot("results/test_open_app.png")
         assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
-        # self.gui.alert('Try alert message function')
+        self.gui.alert('Try alert message function')
 
 
 
