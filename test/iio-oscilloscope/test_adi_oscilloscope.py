@@ -36,6 +36,7 @@ class TestIIOOscilloscope:
             app_name="osc",
             path="/usr/local/bin/osc",
         )
+<<<<<<< HEAD
         time.sleep(delay)
         #find_active_screen
         for w in self.gui.get_open_windows():
@@ -44,3 +45,17 @@ class TestIIOOscilloscope:
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_a_app.png")
       
+=======
+        time.sleep(20)
+        # find_main screen
+        for w in self.gui.get_open_windows():
+            if w:
+                print(self.gui.get_window_title(w))
+        # main_window = self.gui.find_window("IIO Oscilloscope")
+        # center on screen
+        # self.gui.set_window_center(main_window)
+        time.sleep(10)
+        self.gui.controller.screenshot("results/test_open_app.png")
+        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+        
+>>>>>>> 322fcd8 (Update test for osc launching--signoff)

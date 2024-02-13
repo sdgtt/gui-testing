@@ -40,7 +40,6 @@ class TestADIGnuradio:
             app_name="gnuradio",
             path="/usr/bin/gnuradio-companion",
         )
-<<<<<<< HEAD
         time.sleep(delay)
         print("Test build: Check application title")
         # Find main screen
@@ -48,6 +47,7 @@ class TestADIGnuradio:
         for w in self.gui.get_open_windows():
             if w:
                 print(self.gui.get_window_title(w))
+<<<<<<< HEAD
 =======
         time.sleep(15)
 <<<<<<< HEAD
@@ -79,6 +79,8 @@ class TestADIGnuradio:
         
 
 >>>>>>> 330962e (Revert "add result image")
+=======
+>>>>>>> cfcaff3 (Update test for osc launching--signoff)
 
         # Attempt to find the window titles
         for w in self.gui.get_open_windows():
