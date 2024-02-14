@@ -45,7 +45,7 @@ class TestIIOOscilloscope:
     def set_window_center(self, window):
         time.sleep(delay)
         # find_main_window
-        self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+        self.gui.find_window("ADI IIO Oscilloscope")
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_a_app.png")
       
@@ -56,11 +56,15 @@ class TestIIOOscilloscope:
     def set_window_above(self, window):
         time.sleep(delay)
 <<<<<<< HEAD
+<<<<<<< HEAD
         # find_second_window 
         self.gui.find_window("ADI IIO Oscilloscope")[1]
 =======
         self.gui.find_window("ADI IIO Oscilloscope")
 >>>>>>> da34891 (removed unnecessary)
+=======
+        self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+>>>>>>> ce7685d (remove if)
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_b_app.png")
         time.sleep(delay)
