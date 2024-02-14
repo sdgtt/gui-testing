@@ -36,11 +36,10 @@ class TestIIOOscilloscope:
             app_name="osc",
             path="/usr/local/bin/osc",
         )
-        time.sleep(10)
+        time.sleep(delay)
         for w in self.gui.get_open_windows():
             if w:
                 print(self.gui.get_window_title(w))
-    def set_window_center(self, window):
         time.sleep(delay)
         # find_main_window
         self.gui.find_window("ADI IIO Oscilloscope - Capture1")[0]
@@ -48,10 +47,7 @@ class TestIIOOscilloscope:
         self.gui.controller.screenshot("results/test_open_a_app.png")
         time.sleep(20)
         assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
-
-    def set_window_above(self, window):
         time.sleep(delay)
-        # find_second_window 
         self.gui.find_window("ADI IIO Oscilloscope")[1]
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_b_app.png")
