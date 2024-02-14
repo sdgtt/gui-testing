@@ -42,20 +42,23 @@ class TestIIOOscilloscope:
         for w in self.gui.get_open_windows():
             if w:   
                 print(self.gui.get_window_title(w))
+    def set_window_center(self, window):
+        time.sleep(delay)
+        # find_main_window
+        self.gui.find_window("ADI IIO Oscilloscope - Capture1")[0]
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_a_app.png")
       
 =======
         time.sleep(20)
-        # find_main screen
-        for w in self.gui.get_open_windows():
-            if w:
-                print(self.gui.get_window_title(w))
-        # main_window = self.gui.find_window("IIO Oscilloscope")
-        # center on screen
-        # self.gui.set_window_center(main_window)
-        time.sleep(10)
-        self.gui.controller.screenshot("results/test_open_app.png")
-        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+        assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
+
+    def set_window_above(self, window):
+        time.sleep(delay)
+        # find_second_window 
+        self.gui.find_window("ADI IIO Oscilloscope")[1]
+        time.sleep(delay)
+        self.gui.controller.screenshot("results/test_open_b_app.png")
+        time.sleep(delay)
+        assert self.gui.controller.locateOnScreen("ref_test_open_b_app.png", grayscale=True, confidence=0.5)
         
->>>>>>> 322fcd8 (Update test for osc launching--signoff)
