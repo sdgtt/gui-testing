@@ -25,7 +25,7 @@ def pytest_addoption(parser):
         action="store",
         type=int,
         default=10,
-        help="adding delay or sleep time",
+        help="adding delay",
     )
 
 
