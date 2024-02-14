@@ -28,7 +28,7 @@ class TestIIOOscilloscope:
         del self.gui
 
     @pytest.mark.remote
-    def test_open_app_on_remote(self, ip):
+    def test_open_app_on_remote(self, ip, delay):
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
             host=ip,
