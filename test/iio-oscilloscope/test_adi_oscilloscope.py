@@ -45,9 +45,12 @@ class TestIIOOscilloscope:
     def set_window_center(self, window):
         time.sleep(delay)
         # find_main_window
+        self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+        time.sleep(delay)
         self.gui.find_window("ADI IIO Oscilloscope")
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_a_app.png")
+<<<<<<< HEAD
       
 =======
         time.sleep(20)
@@ -65,8 +68,11 @@ class TestIIOOscilloscope:
 =======
         self.gui.find_window("ADI IIO Oscilloscope - Capture1")
 >>>>>>> ce7685d (remove if)
+=======
+>>>>>>> 419f86c (change steps)
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_b_app.png")
         time.sleep(delay)
+        assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
+        time.sleep(delay)
         assert self.gui.controller.locateOnScreen("ref_test_open_b_app.png", grayscale=True, confidence=0.5)
-        
