@@ -36,6 +36,7 @@ class TestIIOOscilloscope:
             app_name="osc",
             path="/usr/local/bin/osc",
         )
+<<<<<<< HEAD
         time.sleep(delay)
         #find_active_screen
         for w in self.gui.get_open_windows():
