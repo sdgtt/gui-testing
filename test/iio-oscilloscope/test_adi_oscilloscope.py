@@ -53,7 +53,6 @@ class TestIIOOscilloscope:
         self.gui.find_window("ADI IIO Oscilloscope")
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_a_app.png")
-<<<<<<< HEAD
       
 =======
         time.sleep(20)
