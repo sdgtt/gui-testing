@@ -41,12 +41,19 @@ class TestIIOOscilloscope:
             if w:   
                 print(self.gui.get_window_title(w))
             if w: 
-                self.gui.get_window_title("ADI IIO Oscilloscope")
+                print(self.gui.get_window_title("ADI IIO Oscilloscope"))
+                time.sleep(delay)
                 self.gui.find_window("ADI IIO Oscilloscope")
                 time.sleep(delay)
+                self.gui.controller.screenshot("results/test_open_a_app.png")
+                time.sleep(delay)
+                assert self.gui.controller.locateAllScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
             if w: 
-                self.gui.get_window_title("ADI IIO Oscilloscope")
+                print(self.gui.get_window_title("ADI IIO Oscilloscope - Capture1"))
+                time.sleep(delay)
                 self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+                time.sleep(delay)
+                self.gui.controller.screenshot("results/test_open_b_app.png")
                 time.sleep(delay)
         # find_main_window
         # self.gui.find_window("ADI IIO Oscilloscope")
