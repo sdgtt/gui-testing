@@ -46,7 +46,7 @@ class TestIIOOscilloscope:
                 time.sleep(delay)
                 self.gui.controller.screenshot("results/test_open_a_app.png")
                 time.sleep(delay)
-                assert self.gui.controller.locateAllScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
+                assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
                 if w is None:
                     print(w is None)
                 # print(self.gui.get_window_title("ADI IIO Oscilloscope - Capture1"))
