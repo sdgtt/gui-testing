@@ -38,10 +38,12 @@ class TestIIOOscilloscope:
         )
         time.sleep(delay)
         for w in self.gui.get_open_windows():
-            if w:
+            if w:   
                 print(self.gui.get_window_title(w))
-        self.gui.find_window("ADI IIO Oscilloscope")
-        time.sleep(delay)
+                self.gui.find_window("ADI IIO Oscilloscope")
+                time.sleep(delay)
+                self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+                time.sleep(delay)
         # find_main_window
         # self.gui.find_window("ADI IIO Oscilloscope")
         # time.sleep(delay)
