@@ -44,8 +44,7 @@ class TestIIOOscilloscope:
                 time.sleep(delay)
                 assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
                 self.gui.controller.screenshot("results/test_open_a_app.png")
-            if w is None:
-                    print(w is None)
+         
                 # time.sleep(delay)
                 # assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
             
