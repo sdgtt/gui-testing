@@ -40,8 +40,8 @@ class TestIIOOscilloscope:
         for w in self.gui.get_open_windows():
             if w:   
                 print(self.gui.get_window_title(w))
-                print(self.gui.get_window_geometry(w))
-                print(self.gui.set_window_position(w))
+                # print(self.gui.get_window_geometry(w))
+                # print(self.gui.set_window_position(w))
 
         # self.gui.find_window("ADI IIO Oscilloscope")
         # time.sleep(delay)
