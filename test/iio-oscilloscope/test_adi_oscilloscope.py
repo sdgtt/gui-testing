@@ -32,7 +32,7 @@ class TestIIOOscilloscope:
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
             host=ip,
-            user="analog",
+            user="analog",user="analog",
             app_name="osc",
             path="/usr/local/bin/osc",
         )
@@ -40,16 +40,26 @@ class TestIIOOscilloscope:
         for w in self.gui.get_open_windows():
             if w:   
                 print(self.gui.get_window_title(w))
-                # print(self.gui.get_window_geometry(w))
+                print(self.gui.get_window_geometry(w))
+                time.sleep(delay)
                 # print(self.gui.set_window_position(w))
+        try:
+            self.gui.find_window("ADI IIO Oscilloscope")
+            self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+        except:
+            print("Application window not found")
+        else:
+            self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+            self.gui.find_window("ADI IIO Oscilloscope - Capture1")
 
-        # self.gui.find_window("ADI IIO Oscilloscope")
+        
+        
         # time.sleep(delay)
         # self.gui.controller.screenshot("results/test_open_a_app.png")
         # assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
          
-                # time.sleep(delay)
-                # assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
+        # time.sleep(delay)
+        # assert self.gui.controller.locateOnScreen("ref_test_open_a_app.png", grayscale=True, confidence=0.5)
             
                 # print(self.gui.get_window_title("ADI IIO Oscilloscope - Capture1"))
                 # time.sleep(delay)
