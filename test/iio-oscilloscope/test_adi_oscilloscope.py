@@ -32,7 +32,7 @@ class TestIIOOscilloscope:
         '''Test if app opens, and checks main window'''
         self.gui.open_app(
             host=ip,
-            user="analog",user="analog",
+            user="analog",
             app_name="osc",
             path="/usr/local/bin/osc",
         )
