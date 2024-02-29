@@ -36,11 +36,14 @@ class TestIIOOscilloscope:
             app_name="osc",
             path="/usr/local/bin/osc",
         )
-        time.sleep(delay)
+        time.sleep(20)
+        #find_active_screen
         for w in self.gui.get_open_windows():
             if w:   
                 print(self.gui.get_window_title(w))
         #         print(self.gui.get_window_geometry(w))
+        time.sleep(delay)
+        self.gui.find_window("ADI IIO Oscilloscope")
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_a_app.png")
         #         # print(self.gui.set_window_position(w))
