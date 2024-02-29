@@ -45,7 +45,7 @@ class TestIIOOscilloscope:
         self.gui.controller.screenshot("results/test_open_a_app.png")
         #         # print(self.gui.set_window_position(w))
         # try:
-        #     self.gui.find_window("ADI IIO Oscilloscope")
+        #     self.gui.find_wi
         #     self.gui.find_window("ADI IIO Oscilloscope - Capture1")
         # except:
         #     print("Application window not found")
