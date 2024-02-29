@@ -44,6 +44,7 @@ class TestIIOOscilloscope:
                 print(self.gui.get_window_title(w))
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     def set_window_center(self, window):
         time.sleep(delay)
         # find_main_window
@@ -93,6 +94,20 @@ class TestIIOOscilloscope:
         else:
             self.gui.find_window("ADI IIO Oscilloscope - Capture1")
             self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+=======
+        #         print(self.gui.get_window_geometry(w))
+        time.sleep(delay)
+        self.gui.controller.screenshot("results/test_open_a_app.png")
+        #         # print(self.gui.set_window_position(w))
+        # try:
+        #     self.gui.find_window("ADI IIO Oscilloscope")
+        #     self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+        # except:
+        #     print("Application window not found")
+        # else:
+        #     self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+        #     self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+>>>>>>> 82c962b (screenshot screen)
 
         
         
