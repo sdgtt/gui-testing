@@ -43,7 +43,7 @@ class TestIIOOscilloscope:
                 print(self.gui.get_window_title(w))
         #         print(self.gui.get_window_geometry(w))
         time.sleep(delay)
-        self.gui.find_window("ADI IIO Oscilloscope")
+        self.gui.find_window("ADI IIO Oscilloscope - Capture1")
         time.sleep(delay)
         self.gui.controller.screenshot("results/test_open_a_app.png")
         #         # print(self.gui.set_window_position(w))
