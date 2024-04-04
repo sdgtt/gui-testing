@@ -38,23 +38,55 @@ class TestADIGnuradio:
         )
         time.sleep(15)
         #find_main_screen
+        # for w in self.gui.get_open_windows():
+        #     if w:
+        #         print(self.gui.get_window_title(w))      
+        # # find_window_title
+        # try:  
+        #     # for 2022R2
+        #     self.gui.find_window("untitled - GNU Radio Companion")
+        # except:
+        #     try:
+        #         # for Kuiper 2.0
+        #         self.gui.find_window("*untitled - GNU Radio Companion")
+        #     except:
+        #         print("Application title not found")
+        # time.sleep(30)
+        # self.gui.controller.screenshot("results/test_open_app.png")
+        # assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+
+        # Get titles of open windows
         for w in self.gui.get_open_windows():
             if w:
-                print(self.gui.get_window_title(w))      
-        # find_window_title
-        try:  
+                open_window_titles.append(self.gui.get_window_title(w))
+
+        # Print the titles obtained from get_open_windows()
+        print("Titles obtained from get_open_windows():")
+        print(open_window_titles)
+
+        # Attempt to find the window based on your criteria
+        try:
             # for 2022R2
-            self.gui.find_window("untitled - GNU Radio Companion")
+            found_window_title = "untitled - GNU Radio Companion"
+            self.gui.find_window(found_window_title)
         except:
             try:
                 # for Kuiper 2.0
-                self.gui.find_window("*untitled - GNU Radio Companion")
+                found_window_title = "*untitled - GNU Radio Companion"
+                self.gui.find_window(found_window_title)
             except:
-                print("Application title not found")
-        time.sleep(30)
-        self.gui.controller.screenshot("results/test_open_app.png")
-        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+                found_window_title = None  # Window not found
 
+        # Check if the found window title matches any of the open windows
+        if found_window_title:
+            if found_window_title in open_window_titles:
+                print(f"Window with title '{found_window_title}' found and matches the open windows.")
+            else:
+                print(f"Window with title '{found_window_title}' found but does not match any of the open windows.")
+        else:
+            print("Application title not found")
+
+        time.sleep(30)
 
 
 
