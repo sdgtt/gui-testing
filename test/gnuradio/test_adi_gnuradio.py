@@ -4,6 +4,8 @@ import time
 import os
 import shutil
 
+
+
 class TestADIGnuradio:
 
     @classmethod
@@ -29,71 +31,43 @@ class TestADIGnuradio:
 
     @pytest.mark.remote
     def test_open_app_on_remote(self, ip, delay):
+        print("Test build: Started")
         '''Test if app opens, and checks main window'''
+        print("Test build: Opening application")
         self.gui.open_app(
             host= ip,
             user="analog",
             app_name="gnuradio",
             path="/usr/bin/gnuradio-companion",
         )
-        time.sleep(15)
-        #find_main_screen
-        # for w in self.gui.get_open_windows():
-        #     if w:
-        #         print(self.gui.get_window_title(w))      
-        # # find_window_title
-        # try:  
-        #     # for 2022R2
-        #     self.gui.find_window("untitled - GNU Radio Companion")
-        # except:
-        #     try:
-        #         # for Kuiper 2.0
-        #         self.gui.find_window("*untitled - GNU Radio Companion")
-        #     except:
-        #         print("Application title not found")
-        # time.sleep(30)
-        # self.gui.controller.screenshot("results/test_open_app.png")
-        # assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
-
-        try:
-            # for 2022R2
-            found_window_title = "untitled - GNU Radio Companion"
-            self.gui.find_window(found_window_title)
-        except:
-            try:
-                # for Kuiper 2.0
-                found_window_title = "*untitled - GNU Radio Companion"
-                self.gui.find_window(found_window_title)
-            except:
-                found_window_title = None  # Window not found
-
-        # Get titles of open windows
-        open_window_titles = []  # List to store titles of open windows
+        time.sleep(delay)
+        print("Test build: Check application title")
+        # Find main screen
         for w in self.gui.get_open_windows():
             if w:
-                open_window_titles.append(self.gui.get_window_title(w))
-
-        # Print the titles obtained from get_open_windows()
-        print("Titles obtained from get_open_windows():")
-        print(open_window_titles)
-
-        # Check if the found window title matches any of the open windows
-        if found_window_title:
-            if found_window_title in open_window_titles:
-                print(f"Window with title '{found_window_title}' found and matches the open windows.")
-            else:
-                print(f"Window with title '{found_window_title}' found but does not match any of the open windows.")
+                print(self.gui.get_window_title(w))
+        #For 2022R2
+        if found_window == self.gui.find_window("untitled - GNU Radio Companion"):
+            print(found_window)
+            assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.9)
+            time.sleep(delay)
+            # Take a screenshot of the main screen
+            print("Test build: Taking screenshot for reference")
+            self.gui.controller.screenshot("results/test_open_app.png")            
+            print("Screenshot matches the reference image.")
+            print("Testing done.")  
+        #For Kuiper 2.0
+        elif found_window == self.gui.find_window("*untitled - GNU Radio Companion"):
+            print(found_window)
+            assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.9)
+            time.sleep(delay)
+            # Take a screenshot of the main screen
+            print("Test build: Taking screenshot for reference")
+            self.gui.controller.screenshot("results/test_open_app.png")            
+            print("Screenshot matches the reference image.")
+            print("Testing done.")
         else:
-            print("Application title not found")
+            found_window = None 
+            print("Application is not found")
 
-        time.sleep(30)
-        self.gui.controller.screenshot("results/test_open_app.png")
-        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
-
-
-
-
-        
-
-
-
+    
