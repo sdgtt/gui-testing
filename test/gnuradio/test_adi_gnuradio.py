@@ -55,16 +55,6 @@ class TestADIGnuradio:
         # self.gui.controller.screenshot("results/test_open_app.png")
         # assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
 
-        # Get titles of open windows
-        for w in self.gui.get_open_windows():
-            if w:
-                open_window_titles.append(self.gui.get_window_title(w))
-
-        # Print the titles obtained from get_open_windows()
-        print("Titles obtained from get_open_windows():")
-        print(open_window_titles)
-
-        # Attempt to find the window based on your criteria
         try:
             # for 2022R2
             found_window_title = "untitled - GNU Radio Companion"
@@ -77,6 +67,16 @@ class TestADIGnuradio:
             except:
                 found_window_title = None  # Window not found
 
+        # Get titles of open windows
+        open_window_titles = []  # List to store titles of open windows
+        for w in self.gui.get_open_windows():
+            if w:
+                open_window_titles.append(self.gui.get_window_title(w))
+
+        # Print the titles obtained from get_open_windows()
+        print("Titles obtained from get_open_windows():")
+        print(open_window_titles)
+
         # Check if the found window title matches any of the open windows
         if found_window_title:
             if found_window_title in open_window_titles:
@@ -87,6 +87,9 @@ class TestADIGnuradio:
             print("Application title not found")
 
         time.sleep(30)
+        self.gui.controller.screenshot("results/test_open_app.png")
+        assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.5)
+
 
 
 
