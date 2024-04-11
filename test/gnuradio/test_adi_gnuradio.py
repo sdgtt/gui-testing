@@ -43,21 +43,22 @@ class TestADIGnuradio:
         time.sleep(delay)
         print("Test build: Check application title")
         # Find main screen
+        found_window = None
         for w in self.gui.get_open_windows():
             if w:
                 print(self.gui.get_window_title(w))
-        #For 2022R2
-        if found_window == self.gui.find_window("untitled - GNU Radio Companion"):
-            print(found_window)
-            assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.9)
-            time.sleep(delay)
-            # Take a screenshot of the main screen
-            print("Test build: Taking screenshot for reference")
-            self.gui.controller.screenshot("results/test_open_app.png")            
-            print("Screenshot matches the reference image.")
-            print("Testing done.")  
-        #For Kuiper 2.0
-        elif found_window == self.gui.find_window("*untitled - GNU Radio Companion"):
+
+        # Attempt to find the window titles
+        for w in self.gui.get_open_windows():
+            if self.gui.get_window_title(w) == "untitled - GNU Radio Companion":
+                found_window = self.gui.find_window("untitled - GNU Radio Companion")
+                break
+            elif self.gui.get_window_title(w) == "*untitled - GNU Radio Companion":
+                found_window = self.gui.find_window("*untitled - GNU Radio Companion")
+                break
+
+        # Perform actions based on the found window
+        if found_window:
             print(found_window)
             assert self.gui.controller.locateOnScreen("ref_test_open_app.png", grayscale=True, confidence=0.9)
             time.sleep(delay)
@@ -67,7 +68,7 @@ class TestADIGnuradio:
             print("Screenshot matches the reference image.")
             print("Testing done.")
         else:
-            found_window = None 
             print("Application is not found")
+                
 
     
