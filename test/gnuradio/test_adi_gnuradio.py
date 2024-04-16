@@ -56,7 +56,6 @@ class TestADIGnuradio:
             elif self.gui.get_window_title(w) == "*untitled - GNU Radio Companion":
                 found_window = self.gui.find_window("*untitled - GNU Radio Companion")
                 break
-
         # Perform actions based on the found window
         if found_window:
             print(found_window)
