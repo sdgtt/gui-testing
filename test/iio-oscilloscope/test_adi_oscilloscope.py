@@ -42,5 +42,6 @@ class TestIIOOscilloscope:
             if w:   
                 print(self.gui.get_window_title(w))
         time.sleep(delay)
-        self.gui.controller.screenshot("results/test_open_a_app.png")
+        # self.gui.controller.screenshot("results/test_open_a_app.png")
+        
       
