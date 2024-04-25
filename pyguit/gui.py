@@ -120,9 +120,22 @@ class gui:
         return None
     
     def get_window_position(self, window):
-        # Implement logic to obtain window position
-        # For demonstration purposes, we'll return dummy coordinates
-        return 100, 100, 800, 600
+        try:
+            # Get the window's position and size using pyautogui
+            window_info = self.gui.getWindowsWithTitle(window)
+            if window_info:
+                # Extract position and size information
+                x = window_info[0].left
+                y = window_info[0].top
+                width = window_info[0].width
+                height = window_info[0].height
+                return x, y, width, height
+            else:
+                print(f"Window '{window}' not found.")
+                return None
+        except Exception as e:
+            print(f"Error occurred while getting window position: {e}")
+            return None
 
     def frame(self, window):
         frame = window
