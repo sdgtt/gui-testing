@@ -39,7 +39,7 @@ class TestIIOOscilloscope:
         time.sleep(delay)
         print("Test build: Check application title")
         # Find main screen
-       open_windows = [(w, self.gui.get_window_title(w)) for w in self.gui.get_open_windows() if w]
+        open_windows = [(w, self.gui.get_window_title(w)) for w in self.gui.get_open_windows() if w]
 
     # Print the titles of open windows
     for window, title in open_windows:
