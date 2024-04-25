@@ -67,7 +67,7 @@ class TestIIOOscilloscope:
                 if title == window_title:
                     found_screen = self.gui.find_window(active_screen_title)
                     break
-        time.sleep(delay)
+            time.sleep(delay)
             # Perform actions based on the found screen
             if found_screen:
                 print(found_screen)
