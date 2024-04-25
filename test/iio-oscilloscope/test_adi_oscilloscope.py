@@ -64,22 +64,20 @@ class TestIIOOscilloscope:
         # Iterate through window-active screen mappings and find the position coordinates for each application window
         for window, window_title, active_screen_title in window_active_screen_mapping:
             if window:
-                # Get the position coordinates of the application window
-                window_position = self.gui.get_window_position(window)
-                if window_position:
-                    # Extract the position coordinates
-                    x, y, width, height = window_position
-                    # Capture a screenshot within the application window coordinates
-                    screenshot_path = f"results/test_{window_title.replace(' ', '_')}_active_screen.png"
-                    self.gui.controller.screenshot(screenshot_path, region=(x, y, width, height))
-                    # Print a message indicating successful screenshot capture
-                    print(f"Screenshot captured for {window_title}.")
-                    # Perform assertions to compare the captured screenshot with reference images
-                    reference_image = f"ref_test_open_{window_title.lower()[0]}_app.png"  # Construct reference image title
-                    assert self.gui.controller.locateOnScreen(reference_image, region=(x, y, width, height), grayscale=True, confidence=0.9)
-                    # Print a message indicating successful comparison
-                    print(f"Screenshot for {window_title} matches the reference image.")
-                else:
-                    print(f"Failed to get position coordinates for {window_title}.")
-            else:
-                print(f"Window not found for {window_title}.")
+            # Capture a screenshot within the application window coordinates
+            screenshot_path = f"results/test_{window_title.replace(' ', '_')}_active_screen.png"
+            # Get the position and size of the application window
+            x, y, width, height = self.gui.get_window_position(window)
+            # Move the mouse to the top-left corner of the application window
+            self.gui.controller.moveTo(x, y)
+            # Capture a screenshot of the specified region
+            self.gui.controller.screenshot(screenshot_path, region=(x, y, width, height))
+            # Print a message indicating successful screenshot capture
+            print(f"Screenshot captured for {window_title}.")
+            # Perform assertions to compare the captured screenshot with reference images
+            reference_image = f"ref_test_open_{window_title.lower()[0]}_app.png"  # Construct reference image title
+            assert pyautogui.locateOnScreen(reference_image, region=(x, y, width, height), grayscale=True, confidence=0.9)
+            # Print a message indicating successful comparison
+            print(f"Screenshot for {window_title} matches the reference image.")
+        else:
+            print(f"Window not found for {window_title}.")
