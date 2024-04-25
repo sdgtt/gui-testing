@@ -118,6 +118,11 @@ class gui:
                     return window_name.value
                 return window_name.value.decode("utf-8")
         return None
+    
+    def get_window_position(self, window):
+        # Implement logic to obtain window position
+        # For demonstration purposes, we'll return dummy coordinates
+        return 100, 100, 800, 600
 
     def frame(self, window):
         frame = window
