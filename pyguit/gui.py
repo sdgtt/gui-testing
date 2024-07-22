@@ -122,7 +122,7 @@ class gui:
     def get_window_position(self, window):
         try:
             # Get the window's position and size using pyautogui
-            window_info = self.gui.getWindowsWithTitle(window)
+            window_info = self.gui.get_window_position(window)
             if window_info:
                 # Extract position and size information
                 x = window_info[0].left
