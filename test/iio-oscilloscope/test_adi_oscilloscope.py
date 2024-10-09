@@ -36,15 +36,14 @@ class TestIIOOscilloscope:
             app_name="osc",
             path="/usr/local/bin/osc",
         )
-        time.sleep(delay)
-        print("Test build: Check application title")
-        # Find main screen
-        open_windows = [(w, self.gui.get_window_title(w)) for w in self.gui.get_open_windows() if w]
-        print("Test build: Check application title")
-        # Print the titles of open windows
-        for window, title in open_windows:
-            print(title)
-        time.sleep(delay)
+        time.sleep(10)
+        # find_main screen
+        main_window = self.gui.find_window("aditof-demo 3.1.0")
+        # center on screen
+        self.gui.set_window_center(main_window)
+        time.sleep(5)
+        assert self.gui.controller.locateCenterOnScreen("ref_test_open_adi_iio_oscilloscope-capture1_app.png", grayscale=True, confidence=0.9)
+        self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope-capture1_app.png")
 
         # List to store the window-active screen mappings
         # print("Test build: Window mapping")
