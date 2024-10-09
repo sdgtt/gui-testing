@@ -38,7 +38,7 @@ class TestIIOOscilloscope:
         )
         time.sleep(delay)
         # find_main screen
-        main_window = self.gui.find_window("aditof-demo 3.1.0")
+        main_window = self.gui.find_window("ADI IIO Oscilloscope - Capture1")
         # center on screen
         self.gui.set_window_center(main_window)
         time.sleep(delay)
