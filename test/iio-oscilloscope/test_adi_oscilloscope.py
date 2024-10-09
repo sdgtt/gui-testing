@@ -37,6 +37,13 @@ class TestIIOOscilloscope:
             path="/usr/local/bin/osc",
         )
         time.sleep(delay)
+        print("Test build: Check application title")
+        # Find main screen
+        found_window = None
+        for w in self.gui.get_open_windows():
+            if w:
+                print(self.gui.get_window_title(w))
+        time.sleep(delay)
         # find_main screen
         main_window = self.gui.find_window("ADI IIO Oscilloscope - Capture1")
         # center on screen
