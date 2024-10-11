@@ -48,6 +48,7 @@ class TestIIOOscilloscope:
         time.sleep(delay)
         small_window = self.gui.find_window("ADI IIO Oscilloscope")
         self.gui.set_window_center(small_window)
+        print("Test build: Done small window")
         time.sleep(delay)
         assert self.gui.controller.locateCenterOnScreen("ref_test_open_adi_iio_oscilloscope_app.png", grayscale=True, confidence=0.5)
         self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope_app.png")
@@ -57,7 +58,7 @@ class TestIIOOscilloscope:
         time.sleep(delay)
         assert self.gui.controller.locateCenterOnScreen("ref_test_open_adi_iio_oscilloscope-capture1_app.png", grayscale=True, confidence=0.5)
         self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope-capture1_app.png")
-         
+        print("Test build: Done main window")
         
     # def test_play_button(self):
     #     '''Test if capture works by clicking the play button'''
