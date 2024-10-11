@@ -47,7 +47,7 @@ class TestIIOOscilloscope:
         # find_main screen
         main_window = self.gui.find_window("ADI IIO Oscilloscope - Capture1")
         time.sleep(delay)
-        assert self.gui.controller.locateOnScreen("ref_test_open_adi_iio_oscilloscope-capture1_app.png", grayscale=True, confidence=0.5)
+        assert self.gui.controller.locateCenterOnScreen("ref_test_open_adi_iio_oscilloscope-capture1_app.png", grayscale=True, confidence=0.5)
         self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope-capture1_app.png")
 
         # List to store the window-active screen mappings
