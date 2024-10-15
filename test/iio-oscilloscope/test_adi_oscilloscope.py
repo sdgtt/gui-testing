@@ -67,11 +67,13 @@ class TestIIOOscilloscope:
         self.gui.controller.click(checkboxBtn)
         time.sleep(5)
         self.gui.controller.screenshot("results/test_checkbox=_button.png")   
+        print("Test build: Done checkbox")
         time.sleep(delay)
         runBtn = self.gui.controller.locateCenterOnScreen("ref_test_run_button.png", grayscale=True, confidence=0.5)
         assert runBtn
         self.gui.controller.click(runBtn)
         time.sleep(5)
         self.gui.controller.screenshot("results/test_run_button.png") 
+        print("Test build: Done run button")
 
       
