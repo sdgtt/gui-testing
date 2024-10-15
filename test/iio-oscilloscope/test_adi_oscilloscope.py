@@ -60,11 +60,11 @@ class TestIIOOscilloscope:
         self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope-capture1_app.png")
         print("Test build: Done main window")
         
-    # def test_play_button(self):
-    #     '''Test if capture works by clicking the play button'''
-    #     found = self.gui.controller.locateCenterOnScreen("ref_test_play_button.png", grayscale=True, confidence=0.9)
-    #     assert found
-    #     self.gui.controller.click(found)
-    #     time.sleep(5)
-    #     self.gui.controller.screenshot("results/test_play_button.png")    
+    def test_play_button(self):
+        '''Test if capture works by clicking the checkbox button'''
+        found = self.gui.controller.locateCenterOnScreen("ref_test_enable_all_checkbox.png", grayscale=True, confidence=0.9)
+        assert found
+        self.gui.controller.click(found)
+        time.sleep(5)
+        self.gui.controller.screenshot("results/test_checkbox_button.png")    
       
