@@ -30,7 +30,7 @@ class TestDiagnostic:
     @pytest.mark.remote
     def test_open_app_on_remote(self, ip, delay):
         '''Test if app opens, and checks main window'''
-        self.gui.open_app(
+        self.gui.open_app_diagnostic(
             host=ip,
             user="analog",
             app_name="adi_diagnostic_report --gui",
@@ -54,7 +54,7 @@ class TestDiagnostic:
         self.gui.controller.screenshot("results/test_open_diagnostic.png")
       
         
-    def test_play_button(self,delay):
+    def test_run_button(self,delay):
         '''Test if capture works by clicking the checkbox button'''
         noneBtn = self.gui.controller.locateCenterOnScreen("ref_test_click_none_button.png", grayscale=True, confidence=0.9)
         assert noneBtn

@@ -10,6 +10,7 @@ import subprocess
 import re
 from Xlib import display, X, Xatom
 from ewmh import EWMH
+import argparse
 
 from sys import platform
 if not (platform == "linux" or platform == "linux2"):
@@ -178,6 +179,18 @@ class gui:
         command = [path]
         if host:
             command = ["ssh","-X", f"{user}@{host}", path]
+
+        p = subprocess.Popen(command,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE,
+                                text=True,
+                            )
+        self.run(app_name,p, daemon=daemon)
+
+    def open_app_diagnostic(self, app_name, path, host=None, user=None, daemon=True):
+        command = [path]
+        if host:
+            command = ["ssh","-X", f"{user}@{host}", path, "--gui"]
 
         p = subprocess.Popen(command,
                                 stdout=subprocess.PIPE,
