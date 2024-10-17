@@ -34,7 +34,7 @@ class TestDiagnostic:
             host=ip,
             user="analog",
             app_name="osc",
-            path="/usr/local/bin/osc",
+            path="/usr/local/bin/diagnostic",
         )
         time.sleep(delay)
         print("Test build: Check application title")
@@ -46,34 +46,35 @@ class TestDiagnostic:
         time.sleep(delay)
         #find_small_window
         time.sleep(delay)
-        small_window = self.gui.find_window("ADI IIO Oscilloscope")
-        self.gui.set_window_center(small_window)
-        print("Test build: Done small window")
-        time.sleep(delay)
-        assert self.gui.controller.locateCenterOnScreen("ref_test_open_adi_iio_oscilloscope_app.png", grayscale=True, confidence=0.5)
-        self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope_app.png")
-        # find_main screen
-        main_window = self.gui.find_window("ADI IIO Oscilloscope - Capture1")
+        main_window = self.gui.find_window("Generate Diagnostic Report")
         self.gui.set_window_center(main_window)
-        time.sleep(delay)
-        assert self.gui.controller.locateCenterOnScreen("ref_test_open_adi_iio_oscilloscope-capture1_app.png", grayscale=True, confidence=0.5)
-        self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope-capture1_app.png")
         print("Test build: Done main window")
+        time.sleep(delay)
+        assert self.gui.controller.locateCenterOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.5)
+        self.gui.controller.screenshot("results/test_open_diagnostic.png")
+      
         
     def test_play_button(self,delay):
         '''Test if capture works by clicking the checkbox button'''
-        checkboxBtn = self.gui.controller.locateCenterOnScreen("ref_test_enable_all_checkbox.png", grayscale=True, confidence=0.9)
-        assert checkboxBtn
-        self.gui.controller.click(checkboxBtn)
+        noneBtn = self.gui.controller.locateCenterOnScreen("ref_test_click_none_button.png", grayscale=True, confidence=0.9)
+        assert noneBtn
+        self.gui.controller.click(noneBtn)
         time.sleep(5)
-        self.gui.controller.screenshot("results/test_checkbox=_button.png")   
-        print("Test build: Done checkbox")
+        self.gui.controller.screenshot("results/test_none_button.png")   
+        print("Test build: Done None button")
         time.sleep(delay)
-        runBtn = self.gui.controller.locateCenterOnScreen("ref_test_run_button.png", grayscale=True, confidence=0.5)
-        assert runBtn
-        self.gui.controller.click(runBtn)
+        analogItem = self.gui.controller.locateCenterOnScreen("ref_test_run_button.png", grayscale=True, confidence=0.5)
+        assert analogItem
+        self.gui.controller.click(analogItem)
         time.sleep(5)
-        self.gui.controller.screenshot("results/test_run_button.png") 
-        print("Test build: Done run button")
+        self.gui.controller.screenshot("results/test_analog_item.png") 
+        print("Test build: Done analog item")
+        generateBtn = self.gui.controller.locateCenterOnScreen("ref_test_click_generate_button.png", grayscale=True, confidence=0.9)
+        assert generateBtn
+        self.gui.controller.click(generateBtn)
+        time.sleep(5)
+        self.gui.controller.screenshot("results/test_generate_button.png")   
+        print("Test build: Done Generate button")
+        
 
       
