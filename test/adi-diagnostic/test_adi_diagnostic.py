@@ -30,7 +30,7 @@ class TestDiagnostic:
     @pytest.mark.remote
     def test_open_app_terminal_on_remote(self, ip, delay):
         '''Test if app opens, and checks main window'''
-        self.gui.open_app_diagnostic(
+        self.gui.open_app(
             host=ip,
             user="analog",
             # app_name="adi_diagnostic_report --gui",
