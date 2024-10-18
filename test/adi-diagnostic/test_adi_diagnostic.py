@@ -33,10 +33,11 @@ class TestDiagnostic:
         self.gui.open_app(
             host=ip,
             user="analog",
-            # app_name="adi_diagnostic_report --gui",
-            app_name="lxterminal",
+            app_name="adi_diagnostic_report --gui",
+            # app_name="LXTerminal",
             # path="/usr/local/bin/adi_diagnostic_report",
-            path="/usr/bin/lxterminal",
+            path="/usr/local/share/adi_diagnostic_report/adi_diagnostic_report.glade",
+            # path="/usr/bin/lxterminal",
         )
         time.sleep(delay)
         print("Test build: Check application title")
@@ -46,29 +47,29 @@ class TestDiagnostic:
             if w:
                 print(self.gui.get_window_title(w))
         time.sleep(delay)
-        #find_terminal_window
-        terminal_window = self.gui.find_window("analog@analog:~")
-        self.gui.set_window_center(terminal_window)
-        print("Test build: Done terminal window")
-        time.sleep(delay)
-        assert self.gui.controller.locateCenterOnScreen("ref/ref_test_open_terminal.png", grayscale=True, confidence=0.5)
-        self.gui.controller.screenshot("results/test_open_terminal.png")
-        time.sleep(delay)
-        #type in the terminal        
-        clickTerminal = self.gui.controller.locateCenterOnScreen("ref/ref_test_click_terminal.png", grayscale=True, confidence=0.5)
-        assert clickTerminal
-        self.gui.controller.click(clickTerminal)
-        time.sleep(2)
-        self.gui.controller.screenshot("results/test_click_terminal.png")   
-        print("Test build: Done click Terminal")
-        time.sleep(5)
-        self.gui.controller.write('adi_diagnostic_report --gui')
-        time.sleep(5)
-        self.gui.controller.press('enter') # press the Enter key
-        time.sleep(5)
-        assert self.gui.controller.locateCenterOnScreen("ref/ref_test_type_command_terminal.png", grayscale=True, confidence=0.5)
-        self.gui.controller.screenshot("results/test_type_command_terminal.png")
-        time.sleep(delay)
+        # #find_terminal_window
+        # terminal_window = self.gui.find_window("analog@analog:~")
+        # self.gui.set_window_center(terminal_window)
+        # print("Test build: Done terminal window")
+        # time.sleep(delay)
+        # assert self.gui.controller.locateCenterOnScreen("ref/ref_test_open_terminal.png", grayscale=True, confidence=0.5)
+        # self.gui.controller.screenshot("results/test_open_terminal.png")
+        # time.sleep(delay)
+        # #type in the terminal        
+        # clickTerminal = self.gui.controller.locateCenterOnScreen("ref/ref_test_click_terminal.png", grayscale=True, confidence=0.5)
+        # assert clickTerminal
+        # self.gui.controller.click(clickTerminal)
+        # time.sleep(2)
+        # self.gui.controller.screenshot("results/test_click_terminal.png")   
+        # print("Test build: Done click Terminal")
+        # time.sleep(5)
+        # self.gui.controller.write('adi_diagnostic_report --gui')
+        # time.sleep(5)
+        # self.gui.controller.press('enter') # press the Enter key
+        # time.sleep(5)
+        # assert self.gui.controller.locateCenterOnScreen("ref/ref_test_type_command_terminal.png", grayscale=True, confidence=0.5)
+        # self.gui.controller.screenshot("results/test_type_command_terminal.png")
+        # time.sleep(delay)
         main_window = self.gui.find_window("Generate Diagnostic Report")
         self.gui.set_window_center(main_window)
         print("Test build: Done main window")
