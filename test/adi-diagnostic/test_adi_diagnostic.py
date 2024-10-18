@@ -36,7 +36,7 @@ class TestDiagnostic:
             # app_name="adi_diagnostic_report --gui",
             app_name="terminal",
             # path="/usr/local/bin/adi_diagnostic_report",
-            path="/usr/share/raspi-ui-overrides/applications/lxterminal.desktop",
+            path="/usr/share/raspi-ui-overrides/applications/terminal",
         )
         time.sleep(delay)
         print("Test build: Check application title")
