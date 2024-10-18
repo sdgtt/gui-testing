@@ -34,9 +34,9 @@ class TestDiagnostic:
             host=ip,
             user="analog",
             # app_name="adi_diagnostic_report --gui",
-            app_name="terminal",
+            app_name="lxterminal",
             # path="/usr/local/bin/adi_diagnostic_report",
-            path="/usr/share/raspi-ui-overrides/applications/terminal",
+            path="/usr/bin/lxterminal",
         )
         time.sleep(delay)
         print("Test build: Check application title")
