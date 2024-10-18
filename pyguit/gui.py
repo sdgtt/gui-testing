@@ -190,7 +190,7 @@ class gui:
     def open_app_diagnostic(self, app_name, path, host=None, user=None, daemon=True):
         command = [path]
         if host:
-            command = ["ssh","-X", f"{user}@{host}", path, "--gui"]
+            command = ["ssh","-X", f"{user}@{host}", path]
 
         p = subprocess.Popen(command,
                                 stdout=subprocess.PIPE,

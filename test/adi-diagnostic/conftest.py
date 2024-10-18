@@ -28,6 +28,10 @@ def pytest_addoption(parser):
         help="adding delay",
     )
 
+    # parser.addoption(
+    #     "--gui",
+    # )
+
 
 def pytest_configure(config):
     # register marker
