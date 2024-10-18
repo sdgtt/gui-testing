@@ -187,18 +187,6 @@ class gui:
                             )
         self.run(app_name,p, daemon=daemon)
 
-    def open_app_diagnostic(self, app_name, path, host=None, user=None, daemon=True):
-        command = [path]
-        if host:
-            command = ["ssh","-X", f"{user}@{host}", path]
-
-        p = subprocess.Popen(command,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE,
-                                text=True,
-                            )
-        self.run(app_name,p, daemon=daemon)
-
 if __name__ == "__main__":
     g = gui()
     time.sleep(10)
