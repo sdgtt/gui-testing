@@ -33,10 +33,9 @@ class TestDiagnostic:
         self.gui.open_app(
             host=ip,
             user="analog",
-            # app_name="adi_diagnostic_report",
-            # path="/usr/local/bin/adi_diagnostic_report",
-            app_name="adi-diagnostic-report.desktop",
-            path="/usr/local/share/applications/adi-diagnostic-report.desktop"
+            app_name="adi_diagnostic_report --gui",
+            path="/usr/local/bin/adi_diagnostic_report",
+
         )
         time.sleep(delay)
         print("Test build: Check application title")
