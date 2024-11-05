@@ -46,7 +46,7 @@ class TestScopy:
         time.sleep(delay)
         #find_small_window
     #     time.sleep(delay)
-        small_window = self.gui.find_window("Scopy")
+        small_window = self.gui.find_window(w)
         self.gui.set_window_center(small_window)
         print("Test build: Done small window")
         time.sleep(delay)
