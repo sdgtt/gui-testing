@@ -46,10 +46,10 @@ class TestScopy:
         time.sleep(delay)
         #find_small_window
     #     time.sleep(delay)
-    #     small_window = self.gui.find_window("Scopy")
-    #     self.gui.set_window_center(small_window)
-    #     print("Test build: Done small window")
-    #     time.sleep(delay)
+        small_window = self.gui.find_window("Scopy")
+        self.gui.set_window_center(small_window)
+        print("Test build: Done small window")
+        time.sleep(delay)
     #     assert self.gui.controller.locateCenterOnScreen("ref_test_open_adi_iio_oscilloscope_app.png", grayscale=True, confidence=0.5)
     #     self.gui.controller.screenshot("results/test_open_adi_iio_oscilloscope_app.png")
     #     # find_main screen
