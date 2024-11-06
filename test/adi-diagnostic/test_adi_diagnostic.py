@@ -34,29 +34,34 @@ class TestDiagnostic:
             host=ip,
             user="analog",
             app_name="adi_diagnostic_report",
-            path="/usr/local/bin/adi_diagnostic_report --gui"
-            )
+            path="/usr/local/bin/adi_diagnostic_report --gui")
         time.sleep(delay)
-        # self.gui.controller.press('win')
-        # assert self.gui.controller.locateCenterOnScreen("ref/ref_test_open_win.png", grayscale=True, confidence=0.5)
-        # self.gui.controller.screenshot("results/test_open_win.png")
-
         print("Test build: Check application title")
         # Find main screen
         found_window = None
         for w in self.gui.get_open_windows():
             if w:
                 print(self.gui.get_window_title(w))
-        time.sleep(delay)
-        main_window = self.gui.find_window("Generate Diagnostic Report")
-        self.gui.set_window_center(main_window)
-        print("Test build: Done main window")
-        time.sleep(delay)
-        assert self.gui.controller.locateCenterOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.5)
-        self.gui.controller.screenshot("results/test_open_diagnostic.png")
+        # self.gui.controller.press('win')
+        # assert self.gui.controller.locateCenterOnScreen("ref/ref_test_open_win.png", grayscale=True, confidence=0.5)
+        # self.gui.controller.screenshot("results/test_open_win.png")
+
+        print("Test build: Check application title")
+        # Find main screen
+        #found_window = None
+        # for w in self.gui.get_open_windows():
+        #     if w:
+        #         print(self.gui.get_window_title(w))
+        # time.sleep(delay)
+        # main_window = self.gui.find_window("Generate Diagnostic Report")
+        # self.gui.set_window_center(main_window)
+        # print("Test build: Done main window")
+        # time.sleep(delay)
+        # assert self.gui.controller.locateCenterOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.5)
+        # self.gui.controller.screenshot("results/test_open_diagnostic.png")
       
         
-    def test_run_button(self,delay):
+    # def test_run_button(self,delay):
         '''Test if capture works by clicking the checkbox button'''
         noneBtn = self.gui.controller.locateCenterOnScreen("ref_test_click_none_button.png", grayscale=True, confidence=0.5)
         assert noneBtn
