@@ -34,7 +34,7 @@ class TestDiagnostic:
             host=ip,
             user="analog",
             app_name="adi_diagnostic_report",
-            path="/usr/local/bin/adi_diagnostic_report")
+            path="/usr/local/bin/adi_diagnostic_report --gui")
         time.sleep(delay)
         print("Test build: Check application title")
         # Find main screen
