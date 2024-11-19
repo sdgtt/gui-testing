@@ -54,10 +54,9 @@ class TestDiagnostic:
         time.sleep(delay)
         assert self.gui.controller.locateOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.9)
         self.gui.controller.screenshot("results/test_open_diagnostic.png")
-      
-        
-    def test_run_button(self,delay):
-        '''Test if capture works by clicking the checkbox button'''
+        time.sleep(5)
+
+        #click functons
         noneBtn = self.gui.controller.locateCenterOnScreen("ref_test_click_none_button.png", grayscale=True, confidence=0.9)
         assert noneBtn
         self.gui.controller.click(noneBtn)
