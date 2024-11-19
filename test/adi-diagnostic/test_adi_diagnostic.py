@@ -65,7 +65,7 @@ class TestDiagnostic:
         self.gui.controller.screenshot("results/test_click_none_button.png")   
         print("Test build: Done None button")
         time.sleep(delay)
-        analogItem = self.gui.controller.locateCenterOnScreen("ref_test_click_analog.png", grayscale=True, confidence=0.9)
+        analogItem = self.gui.controller.locateCenterOnScreen("ref_test_click_analog_item.png", grayscale=True, confidence=0.9)
         assert analogItem
         self.gui.controller.click(analogItem)
         time.sleep(5)
