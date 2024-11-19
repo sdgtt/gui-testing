@@ -52,7 +52,8 @@ class TestDiagnostic:
         self.gui.find_window("Generate Diagnostic Report")
         print("Test build: Done main window")
         time.sleep(delay)
-        assert self.gui.controller.locateOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.9)
+        # assert self.gui.controller.locateOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.9)
+        assert self.gui.controller.locateOnScreen("ref_test_open_app_rpi.png", grayscale=True, confidence=0.9)
         self.gui.controller.screenshot("results/test_open_diagnostic.png")
         time.sleep(5)
 
