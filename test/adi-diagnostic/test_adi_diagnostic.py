@@ -49,11 +49,10 @@ class TestDiagnostic:
             if w:
                 print(self.gui.get_window_title(w))
         time.sleep(delay)
-        main_window = self.gui.find_window("Generate Diagnostic Report")
-        self.gui.set_window_center(main_window)
+        self.gui.find_window("Generate Diagnostic Report")
         print("Test build: Done main window")
         time.sleep(delay)
-        assert self.gui.controller.locateCenterOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.9)
+        assert self.gui.controller.locateOnScreen("ref_test_open_diagnostic.png", grayscale=True, confidence=0.9)
         self.gui.controller.screenshot("results/test_open_diagnostic.png")
       
         
@@ -63,14 +62,14 @@ class TestDiagnostic:
         assert noneBtn
         self.gui.controller.click(noneBtn)
         time.sleep(5)
-        self.gui.controller.screenshot("results/test_none_button.png")   
+        self.gui.controller.screenshot("results/test_click_none_button.png")   
         print("Test build: Done None button")
         time.sleep(delay)
-        analogItem = self.gui.controller.locateCenterOnScreen("ref_test_run_button.png", grayscale=True, confidence=0.9)
+        analogItem = self.gui.controller.locateCenterOnScreen("ref_test_click_analog.png", grayscale=True, confidence=0.9)
         assert analogItem
         self.gui.controller.click(analogItem)
         time.sleep(5)
-        self.gui.controller.screenshot("results/test_analog_item.png") 
+        self.gui.controller.screenshot("results/test_click_analog.png") 
         print("Test build: Done analog item")
         generateBtn = self.gui.controller.locateCenterOnScreen("ref_test_click_generate_button.png", grayscale=True, confidence=0.9)
         assert generateBtn
