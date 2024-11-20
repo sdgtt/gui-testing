@@ -37,7 +37,7 @@ class TestADIGnuradio:
         self.gui.open_app(
             host= ip,
             user="analog",
-            app_name="gnuradio-companion",
+            app_name="gnuradio",
             path="/usr/bin/gnuradio-companion",
         )
         time.sleep(delay)
