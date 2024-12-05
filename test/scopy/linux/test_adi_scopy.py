@@ -40,10 +40,10 @@ class TestScopy:
         print("Test build: Check application title")
         # Find main screen
         found_window = None
-        for w in self.gui.get_open_windows():
-            if w:
-                print(self.gui.get_window_title(w))
-        print(self.gui.get_window_title(w))
-        time.sleep(delay)
+        # for w in self.gui.get_open_windows():
+        #     if w:
+        #         print(self.gui.get_window_title(w))
+        # print(self.gui.get_window_title(w))
+        # time.sleep(delay)
 
       
