@@ -37,9 +37,9 @@ class TestScopy:
             path="/usr/bin/flatpak",
         )
         time.sleep(delay)
-        print("Test build: Check application title")
+        # print("Test build: Check application title") **commented this first**
         # Find main screen
-        found_window = None
+        # found_window = None
         # for w in self.gui.get_open_windows():
         #     if w:
         #         print(self.gui.get_window_title(w))
