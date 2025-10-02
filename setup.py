@@ -1,3 +1,4 @@
+import re
 import setuptools
 
 def _get_version():
