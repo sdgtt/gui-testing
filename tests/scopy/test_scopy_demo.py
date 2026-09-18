@@ -72,6 +72,26 @@ def scopy_app(controller, scopy_path):
         controller.launch_app("scopy", scopy_path)
 
     time.sleep(20)
+
+    # Dismiss any startup popups (e.g. libsigrokdecode error dialog)
+    if sys.platform == "win32":
+        import pyautogui
+        # Try clicking OK/Yes buttons or pressing Enter to dismiss dialogs
+        for _ in range(3):
+            try:
+                ok_btn = pyautogui.locateCenterOnScreen(
+                    os.path.join(REF_DIR, "Scopy_yes.png"), confidence=0.6
+                )
+                if ok_btn:
+                    pyautogui.click(ok_btn)
+                    time.sleep(2)
+                    continue
+            except Exception:
+                pass
+            # Press Enter as fallback to dismiss any focused dialog
+            pyautogui.press("enter")
+            time.sleep(2)
+
     yield
     if sys.platform == "win32":
         os.system("taskkill /F /IM Scopy.exe 2>nul")
