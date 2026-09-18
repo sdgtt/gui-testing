@@ -67,7 +67,8 @@ def controller():
 def scopy_app(controller, scopy_path):
     """Launch Scopy and wait for it to load."""
     if sys.platform == "win32":
-        os.startfile(scopy_path)
+        scopy_dir = os.path.dirname(scopy_path)
+        subprocess.Popen([scopy_path], cwd=scopy_dir)
     else:
         controller.launch_app("scopy", scopy_path)
 
