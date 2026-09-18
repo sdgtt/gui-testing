@@ -1,7 +1,7 @@
-"""IIO Oscilloscope test using PyGUIt v2.
+"""IIO Oscilloscope test using PyGUIt v2 — OCR-based, no reference images needed.
 
 Run on Windows:
-    pytest tests/iio-oscilloscope/test_iio_osc.py -v --osc-path "C:\\path\\to\\osc.exe"
+    pytest tests/iio-oscilloscope/test_iio_osc.py -v --osc-path "C:\\Program Files\\IIO Oscilloscope\\bin\\osc.exe"
 """
 
 import os
@@ -20,27 +20,11 @@ from pyguit import (
 )
 from pyguit.validation.rules import ComparisonOp, ValidationRule
 
-REF_DIR = os.path.join(os.path.dirname(__file__), "references")
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
-
-CONFIDENCE = 0.5
-
-
-def _ref(name: str) -> str:
-    return os.path.join(REF_DIR, name)
 
 
 def _screenshot(evidence, controller, name):
     return evidence.capture_screenshot(controller, name)
-
-
-def _find_and_click(controller, ref_image, confidence=CONFIDENCE, delay=2.0):
-    result = controller.locate_on_screen(ref_image, confidence=confidence)
-    if result:
-        controller.click(*result)
-        time.sleep(delay)
-        return True
-    return False
 
 
 @pytest.fixture(scope="module")
@@ -48,7 +32,7 @@ def osc_path(request):
     path = request.config.getoption("--osc-path", default="")
     if not path:
         if sys.platform == "win32":
-            path = r"C:\Program Files\Analog Devices\IIO Oscilloscope\osc.exe"
+            path = r"C:\Program Files\IIO Oscilloscope\bin\osc.exe"
         else:
             path = "/usr/local/bin/osc"
     return path
@@ -101,62 +85,41 @@ def evidence():
 
 
 class TestIIOOscilloscope:
-    """Test IIO Oscilloscope. Screenshots at every step."""
+    """Test IIO Oscilloscope using OCR-based text interaction."""
 
     def test_01_app_launches(self, controller, osc_app, evidence):
         """Verify IIO Oscilloscope launched."""
         path = _screenshot(evidence, controller, "01_launched.png")
         assert os.path.isfile(path)
-        evidence.save_log("launch", "IIO Oscilloscope launched, screenshot captured")
 
     def test_02_verify_main_window(self, controller, osc_app, evidence):
-        """Check that the main oscilloscope window is visible."""
-        _screenshot(evidence, controller, "02a_main_window.png")
+        """Check that the main oscilloscope text is visible via OCR."""
+        _screenshot(evidence, controller, "02_main_window.png")
 
-        found = controller.locate_on_screen(
-            _ref("ref_test_open_adi_iio_oscilloscope_app.png"), confidence=CONFIDENCE
-        )
-        _screenshot(evidence, controller, "02b_main_window_check.png")
-        evidence.save_log("main_window", f"Main window found: {found is not None}")
+        matches = controller.find_text("ADI IIO Oscilloscope")
+        evidence.save_log("main_window", f"Found 'ADI IIO Oscilloscope': {len(matches)} matches")
 
-    def test_03_verify_capture_window(self, controller, osc_app, evidence):
-        """Check that the Capture1 window is visible."""
-        found = controller.locate_on_screen(
-            _ref("ref_test_open_adi_iio_oscilloscope-capture1_app.png"),
-            confidence=CONFIDENCE,
-        )
-        _screenshot(evidence, controller, "03_capture_window.png")
-        evidence.save_log("capture_window", f"Capture window found: {found is not None}")
+    def test_03_enable_all_channels(self, controller, osc_app, evidence):
+        """Enable all channels via text click."""
+        _screenshot(evidence, controller, "03a_before_enable.png")
 
-    def test_04_enable_all_channels(self, controller, osc_app, evidence):
-        """Click the enable all checkbox."""
-        _screenshot(evidence, controller, "04a_before_checkbox.png")
+        clicked = controller.click_text("Enable")
+        time.sleep(3)
+        _screenshot(evidence, controller, "03b_after_enable.png")
+        evidence.save_log("enable", f"Clicked 'Enable': {clicked}")
 
-        found = _find_and_click(
-            controller,
-            _ref("ref_test_enable_all_checkbox.png"),
-            confidence=0.7,
-            delay=5,
-        )
-        _screenshot(evidence, controller, "04b_after_checkbox.png")
-        evidence.save_log("checkbox", f"Enable all checkbox found: {found}")
+    def test_04_run_capture(self, controller, osc_app, evidence):
+        """Start capture via text click."""
+        _screenshot(evidence, controller, "04a_before_run.png")
 
-    def test_05_run_capture(self, controller, osc_app, evidence):
-        """Click the Run button to start capture."""
-        _screenshot(evidence, controller, "05a_before_run.png")
+        clicked = controller.click_text("Run")
+        time.sleep(5)
+        _screenshot(evidence, controller, "04b_after_run.png")
+        evidence.save_log("run", f"Clicked 'Run': {clicked}")
 
-        found = _find_and_click(
-            controller,
-            _ref("ref_test_run_button.png"),
-            confidence=CONFIDENCE,
-            delay=5,
-        )
-        _screenshot(evidence, controller, "05b_after_run.png")
-        evidence.save_log("run", f"Run button found: {found}")
-
-    def test_06_verify_not_frozen(self, controller, osc_app, evidence):
+    def test_05_verify_not_frozen(self, controller, osc_app, evidence):
         """OCR the screen to check app is responsive."""
-        path = _screenshot(evidence, controller, "06_health_check.png")
+        path = _screenshot(evidence, controller, "05_health_check.png")
 
         engine = ValidationEngine()
         engine.add_rule(ValidationRule(
@@ -177,7 +140,7 @@ class TestIIOOscilloscope:
             evidence.set_status("pass")
             evidence.save_log("ocr", f"OCR skipped: {e}")
 
-    def test_07_generate_report(self, evidence):
+    def test_06_generate_report(self, evidence):
         """Generate a Markdown validation report."""
         evidence.set_status("pass")
         reporter = ReportGenerator()

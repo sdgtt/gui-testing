@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import sys
 import time
 from typing import Any
@@ -206,6 +207,85 @@ class GUIController:
             screenshot = self._pyautogui.screenshot()
         screenshot.save(filepath)
         return filepath
+
+    # --- OCR-based interaction (cross-platform) ---
+
+    def find_text(
+        self,
+        text: str,
+        confidence: int = 40,
+        screenshot_path: str | None = None,
+    ) -> list[dict]:
+        """Find text on screen using OCR. Returns list of matches with cx/cy coords."""
+        from pyguit.ocr.reader import OCRReader
+
+        cleanup = False
+        if screenshot_path is None:
+            import tempfile
+            screenshot_path = os.path.join(
+                tempfile.gettempdir(), "_pyguit_find_text.png"
+            )
+            self.capture_screenshot(screenshot_path)
+            cleanup = True
+
+        reader = OCRReader()
+        matches = reader.find_text(
+            screenshot_path, text, min_confidence=confidence
+        )
+
+        if cleanup:
+            try:
+                os.remove(screenshot_path)
+            except OSError:
+                pass
+
+        return matches
+
+    def click_text(
+        self,
+        text: str,
+        confidence: int = 40,
+        occurrence: int = 0,
+    ) -> bool:
+        """Find text on screen via OCR and click its center.
+
+        Args:
+            text: The text to find (case-insensitive, partial match).
+            confidence: Minimum OCR confidence (0-100).
+            occurrence: Which match to click if multiple found (0 = first).
+
+        Returns:
+            True if text was found and clicked, False otherwise.
+        """
+        matches = self.find_text(text, confidence=confidence)
+        if not matches or occurrence >= len(matches):
+            return False
+
+        match = matches[occurrence]
+        self._pyautogui.click(match["cx"], match["cy"])
+        return True
+
+    def wait_for_text(
+        self,
+        text: str,
+        timeout: float = 30.0,
+        interval: float = 1.0,
+        confidence: int = 40,
+    ) -> dict:
+        """Wait until text appears on screen, then return its location.
+
+        Returns the first match dict with cx/cy coords.
+        Raises TimeoutError if not found within timeout.
+        """
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            matches = self.find_text(text, confidence=confidence)
+            if matches:
+                return matches[0]
+            time.sleep(interval)
+        raise TimeoutError(
+            f"Text '{text}' not found on screen within {timeout}s"
+        )
 
     # --- Lifecycle ---
 

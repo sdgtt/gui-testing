@@ -1,4 +1,4 @@
-"""Scopy demo mode test using PyGUIt v2.
+"""Scopy demo mode test using PyGUIt v2 — OCR-based, no reference images needed.
 
 Run on Windows with Scopy installed:
     pytest tests/scopy/test_scopy_demo.py -v --scopy-path "C:\\Program Files\\Analog Devices\\Scopy\\Scopy.exe"
@@ -20,30 +20,11 @@ from pyguit import (
 )
 from pyguit.validation.rules import ComparisonOp, ValidationRule
 
-REF_DIR = os.path.join(os.path.dirname(__file__), "references")
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
-
-CONFIDENCE = 0.6
-TIMEOUT = 15
-
-
-def _ref(name: str) -> str:
-    return os.path.join(REF_DIR, name)
 
 
 def _screenshot(evidence, controller, name):
-    """Always capture a screenshot regardless of test outcome."""
     return evidence.capture_screenshot(controller, name)
-
-
-def _find_and_click(controller, ref_image, confidence=CONFIDENCE, delay=2.0):
-    """Try to find and click a reference image. Returns True if found."""
-    result = controller.locate_on_screen(ref_image, confidence=confidence)
-    if result:
-        controller.click(*result)
-        time.sleep(delay)
-        return True
-    return False
 
 
 @pytest.fixture(scope="module")
@@ -66,34 +47,23 @@ def controller():
 @pytest.fixture(scope="module")
 def scopy_app(controller, scopy_path):
     """Launch Scopy and wait for it to load."""
+    scopy_dir = os.path.dirname(scopy_path)
     if sys.platform == "win32":
-        scopy_dir = os.path.dirname(scopy_path)
         subprocess.Popen([scopy_path], cwd=scopy_dir)
     else:
         controller.launch_app("scopy", scopy_path)
 
     time.sleep(20)
 
-    # Dismiss any startup popups (e.g. libsigrokdecode error dialog)
+    # Dismiss any startup popups by pressing Enter
     if sys.platform == "win32":
         import pyautogui
-        # Try clicking OK/Yes buttons or pressing Enter to dismiss dialogs
         for _ in range(3):
-            try:
-                ok_btn = pyautogui.locateCenterOnScreen(
-                    os.path.join(REF_DIR, "Scopy_yes.png"), confidence=0.6
-                )
-                if ok_btn:
-                    pyautogui.click(ok_btn)
-                    time.sleep(2)
-                    continue
-            except Exception:
-                pass
-            # Press Enter as fallback to dismiss any focused dialog
             pyautogui.press("enter")
             time.sleep(2)
 
     yield
+
     if sys.platform == "win32":
         os.system("taskkill /F /IM Scopy.exe 2>nul")
     else:
@@ -115,47 +85,47 @@ def evidence():
 
 
 class TestScopyDemo:
-    """Test Scopy in demo mode. Screenshots are captured at every step."""
+    """Test Scopy in demo mode using OCR-based text clicking."""
 
     def test_01_scopy_launches(self, controller, scopy_app, evidence):
-        """Verify Scopy launched — always captures a screenshot."""
-        path = _screenshot(evidence, controller, "01_scopy_launched.png")
-        assert os.path.isfile(path), "Screenshot capture failed"
-        evidence.save_log("launch", "Scopy launched, screenshot captured")
+        """Verify Scopy launched."""
+        path = _screenshot(evidence, controller, "01_launched.png")
+        assert os.path.isfile(path)
 
     def test_02_enable_demo_mode(self, controller, scopy_app, evidence):
-        """Click '+' then enable demo mode."""
-        _screenshot(evidence, controller, "02a_before_plus.png")
+        """Click '+' then enable demo mode using text matching."""
+        _screenshot(evidence, controller, "02a_before.png")
 
-        found_plus = _find_and_click(controller, _ref("Scopy_add_plus.png"), delay=3)
+        # Click the '+' button
+        clicked = controller.click_text("+")
+        time.sleep(3)
         _screenshot(evidence, controller, "02b_after_plus.png")
-        evidence.save_log("enable_demo",
-            f"Plus button found: {found_plus}")
+        evidence.save_log("plus", f"Clicked '+': {clicked}")
 
-        found_demo = _find_and_click(controller, _ref("Scopy_enable_demo.png"), delay=3)
-        _screenshot(evidence, controller, "02c_after_demo_enable.png")
-        evidence.save_log("enable_demo",
-            f"Demo button found: {found_demo}")
+        # Enable demo
+        clicked = controller.click_text("Enable Demo")
+        time.sleep(3)
+        _screenshot(evidence, controller, "02c_after_demo.png")
+        evidence.save_log("demo", f"Clicked 'Enable Demo': {clicked}")
 
     def test_03_connect_demo(self, controller, scopy_app, evidence):
         """Connect to the demo device."""
-        _screenshot(evidence, controller, "03a_before_connect.png")
+        _screenshot(evidence, controller, "03a_before.png")
 
-        found_connect = _find_and_click(
-            controller, _ref("Scopy_connect.png"), delay=5
-        )
-        _screenshot(evidence, controller, "03b_after_first_connect.png")
+        clicked = controller.click_text("Connect")
+        time.sleep(5)
+        _screenshot(evidence, controller, "03b_after_connect1.png")
+        evidence.save_log("connect1", f"Clicked 'Connect': {clicked}")
 
-        found_add = _find_and_click(controller, _ref("Scopy_add.png"), delay=3)
+        clicked = controller.click_text("Add")
+        time.sleep(3)
         _screenshot(evidence, controller, "03c_after_add.png")
+        evidence.save_log("add", f"Clicked 'Add': {clicked}")
 
-        found_connect2 = _find_and_click(
-            controller, _ref("Scopy_connect.png"), delay=15
-        )
-        _screenshot(evidence, controller, "03d_after_second_connect.png")
-
-        evidence.save_log("connect",
-            f"Connect1: {found_connect}, Add: {found_add}, Connect2: {found_connect2}")
+        clicked = controller.click_text("Connect")
+        time.sleep(15)
+        _screenshot(evidence, controller, "03d_after_connect2.png")
+        evidence.save_log("connect2", f"Clicked 'Connect': {clicked}")
 
     def test_04_verify_not_frozen(self, controller, scopy_app, evidence):
         """OCR the screen to check Scopy is responsive."""
@@ -182,48 +152,51 @@ class TestScopyDemo:
 
     def test_05_open_oscilloscope(self, controller, scopy_app, evidence):
         """Navigate to oscilloscope."""
-        found = _find_and_click(controller, _ref("Scopy_oscilloscope.png"), delay=3)
+        clicked = controller.click_text("Oscilloscope")
+        time.sleep(3)
         _screenshot(evidence, controller, "05_oscilloscope.png")
-        evidence.save_log("oscilloscope", f"Found: {found}")
+        evidence.save_log("oscilloscope", f"Clicked: {clicked}")
 
     def test_06_run_oscilloscope(self, controller, scopy_app, evidence):
-        """Click Run on oscilloscope."""
-        found = _find_and_click(controller, _ref("Scopy_run.png"), delay=5)
-        _screenshot(evidence, controller, "06_oscilloscope_running.png")
-        evidence.save_log("run", f"Found: {found}")
+        """Click Run."""
+        clicked = controller.click_text("Run")
+        time.sleep(5)
+        _screenshot(evidence, controller, "06_running.png")
+        evidence.save_log("run", f"Clicked: {clicked}")
 
     def test_07_stop_oscilloscope(self, controller, scopy_app, evidence):
-        """Click Stop on oscilloscope."""
-        found = _find_and_click(controller, _ref("Scopy_stop.png"), delay=2)
-        _screenshot(evidence, controller, "07_oscilloscope_stopped.png")
-        evidence.save_log("stop", f"Found: {found}")
+        """Click Stop."""
+        clicked = controller.click_text("Stop")
+        time.sleep(2)
+        _screenshot(evidence, controller, "07_stopped.png")
+        evidence.save_log("stop", f"Clicked: {clicked}")
 
     def test_08_navigate_instruments(self, controller, scopy_app, evidence):
-        """Navigate through instruments, screenshot each one."""
+        """Navigate through instruments by text."""
         instruments = [
-            ("Scopy_signal_generator.png", "08a_signal_gen.png"),
-            ("Scopy_power_supply.png", "08b_power_supply.png"),
-            ("Scopy_digital_io.png", "08c_digital_io.png"),
-            ("Scopy_spectrum_analyzer.png", "08d_spectrum.png"),
-            ("Scopy_network_analyzer.png", "08e_network.png"),
+            ("Signal Generator", "08a_signal_gen.png"),
+            ("Power Supply", "08b_power_supply.png"),
+            ("Digital IO", "08c_digital_io.png"),
+            ("Spectrum Analyzer", "08d_spectrum.png"),
+            ("Network Analyzer", "08e_network.png"),
         ]
 
-        for ref_img, screenshot_name in instruments:
-            found = _find_and_click(controller, _ref(ref_img), delay=3)
+        for label, screenshot_name in instruments:
+            clicked = controller.click_text(label)
+            time.sleep(3)
             _screenshot(evidence, controller, screenshot_name)
-            evidence.save_log(
-                f"instrument_{ref_img}",
-                f"Found: {found}",
-            )
+            evidence.save_log(f"instrument_{label}", f"Clicked: {clicked}")
 
     def test_09_disconnect(self, controller, scopy_app, evidence):
         """Go home and disconnect."""
-        _find_and_click(controller, _ref("Scopy_home.png"), delay=2)
+        controller.click_text("Home")
+        time.sleep(2)
         _screenshot(evidence, controller, "09a_home.png")
 
-        found = _find_and_click(controller, _ref("Scopy_disconnect.png"), delay=5)
+        clicked = controller.click_text("Disconnect")
+        time.sleep(5)
         _screenshot(evidence, controller, "09b_disconnected.png")
-        evidence.save_log("disconnect", f"Found: {found}")
+        evidence.save_log("disconnect", f"Clicked: {clicked}")
 
     def test_10_generate_report(self, evidence):
         """Generate a Markdown validation report."""
