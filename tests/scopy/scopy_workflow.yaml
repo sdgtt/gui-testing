@@ -1,0 +1,16 @@
+workflow:
+  name: scopy_demo_validation
+  device: ADALM2000
+
+validations:
+  - name: check_no_crash
+    field: title_bar
+    operator: not_contains
+    expected: "Not Responding"
+    description: "Verify Scopy is not frozen"
+
+  - name: check_no_error_dialog
+    field: screen_text
+    operator: not_contains
+    expected: "Error"
+    description: "Verify no error dialogs are present"

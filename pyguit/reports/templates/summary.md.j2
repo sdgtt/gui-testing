@@ -1,0 +1,27 @@
+# Test Suite Summary
+
+**Generated:** {{ timestamp }}
+**Total Tests:** {{ total_tests }}
+**Passed:** {{ passed_tests }}
+**Failed:** {{ failed_tests }}
+
+## Results
+
+| Test | Status | Checks | Passed | Failed |
+|------|--------|--------|--------|--------|
+{% for run in runs %}
+| {{ run.test_name }} | {{ "PASSED" if run.all_passed else "FAILED" }} | {{ run.total }} | {{ run.passed }} | {{ run.failed }} |
+{% endfor %}
+
+{% if failed_runs %}
+## Failed Tests
+
+{% for run in failed_runs %}
+### {{ run.test_name }}
+
+{% for result in run.failed_results %}
+- **{{ result.rule_name }}**: Expected={{ result.expected }}, Observed={{ result.observed }}
+{% endfor %}
+
+{% endfor %}
+{% endif %}

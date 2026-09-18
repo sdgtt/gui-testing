@@ -1,0 +1,46 @@
+# Validation Report: {{ metadata.test_name }}
+
+**Date:** {{ metadata.start_time }}
+{% if metadata.device %}**Device:** {{ metadata.device }}{% endif %}
+
+**Status:** {{ "PASSED" if all_passed else "FAILED" }}
+{% if metadata.end_time %}**Duration:** {{ duration }}{% endif %}
+
+## Summary
+
+| Metric | Value |
+|--------|-------|
+| Total Checks | {{ results | length }} |
+| Passed | {{ passed_count }} |
+| Failed | {{ failed_count }} |
+
+## Results
+
+{% for result in results %}
+### {{ result.rule_name }}
+
+- **Status:** {{ "PASSED" if result.passed else "FAILED" }}
+- **Expected:** {{ result.expected }}
+- **Observed:** {{ result.observed }}
+{% if result.message %}- **Message:** {{ result.message }}
+{% endif %}{% if result.evidence_path %}- **Evidence:** [{{ result.evidence_path }}]({{ result.evidence_path }})
+{% endif %}
+{% endfor %}
+
+{% if metadata.screenshots or metadata.logs %}
+## Evidence
+
+{% if metadata.screenshots %}
+### Screenshots
+{% for screenshot in metadata.screenshots %}
+- [{{ screenshot }}]({{ screenshot }})
+{% endfor %}
+{% endif %}
+
+{% if metadata.logs %}
+### Logs
+{% for log in metadata.logs %}
+- [{{ log }}]({{ log }})
+{% endfor %}
+{% endif %}
+{% endif %}

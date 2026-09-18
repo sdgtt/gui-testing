@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyguit"
+version = "2.0.0"
+description = "AI-assisted GUI validation platform for hardware testing"
+readme = "README.md"
+license = {text = "EPL-2.0"}
+requires-python = ">=3.9"
+authors = [
+    {name = "SDG Testing Team", email = "kimchesed.paller@analog.com"},
+]
+dependencies = [
+    "pyautogui>=0.9.54",
+    "opencv-contrib-python>=4.8.0",
+    "pytesseract>=0.3.10",
+    "pyyaml>=6.0",
+    "jinja2>=3.1.0",
+]
+
+[project.optional-dependencies]
+linux = [
+    "python-xlib>=0.33",
+    "ewmh>=0.1.6",
+    "pyvirtualdisplay>=3.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "mypy",
+    "ruff",
+]
+
+[tool.setuptools.packages.find]
+include = ["pyguit*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "remote: mark tests requiring network mode",
+    "local: mark tests requiring local mode",
+    "x11: mark tests requiring X11 display",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true

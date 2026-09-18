@@ -1,0 +1,27 @@
+workflow:
+  name: device_streaming
+  device: ADALM2000
+
+expected:
+  device: connected
+  calibration: completed
+  streaming: active
+
+validations:
+  - name: check_sample_rate
+    field: sample_rate
+    operator: contains
+    expected: "MHz"
+    description: "Verify sample rate is in MHz range"
+
+  - name: check_no_errors
+    field: status
+    operator: not_contains
+    expected: "error"
+    description: "Verify no errors in status"
+
+  - name: check_temperature
+    field: temperature
+    operator: greater_than
+    expected: 0
+    description: "Temperature must be above 0"
