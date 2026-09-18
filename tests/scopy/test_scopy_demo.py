@@ -67,11 +67,11 @@ def controller():
 def scopy_app(controller, scopy_path):
     """Launch Scopy and wait for it to load."""
     if sys.platform == "win32":
-        subprocess.Popen([scopy_path])
+        os.startfile(scopy_path)
     else:
         controller.launch_app("scopy", scopy_path)
 
-    time.sleep(15)
+    time.sleep(20)
     yield
     if sys.platform == "win32":
         os.system("taskkill /F /IM Scopy.exe 2>nul")
