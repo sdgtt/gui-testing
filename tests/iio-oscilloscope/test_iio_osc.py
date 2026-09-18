@@ -69,14 +69,14 @@ def osc_app(controller, osc_path):
     else:
         controller.launch_app("osc", osc_path)
 
-    time.sleep(20)
+    time.sleep(40)
 
     # Dismiss any startup popups
     if sys.platform == "win32":
         import pyautogui
-        for _ in range(3):
+        for _ in range(5):
             pyautogui.press("enter")
-            time.sleep(1)
+            time.sleep(2)
 
     yield
 
